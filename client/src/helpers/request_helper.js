@@ -7,6 +7,7 @@ class RequestHelper {
   get() {
     return fetch(this.url)
       .then(res => res.json())
+      console.log('fetch returned');
   }
 
 }
