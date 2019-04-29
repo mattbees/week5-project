@@ -8,11 +8,9 @@ class CreateProfileFormView {
 
   bindEvents() {
     PubSub.subscribe('WelcomeOptionsView:create-profile-click', (event) => {
-      console.log('WelcomeOptionsView:create-profile-click SUBSCRIBED');
       this.clearText();
       const profileForm = this.renderForm();
       this.element.appendChild(profileForm);
-      console.dir(profileForm);
       const button = document.querySelector('#submitButton');
       button.addEventListener('click', (event) => {
         event.preventDefault();
@@ -22,7 +20,7 @@ class CreateProfileFormView {
         profile.home_location = event.target.form['homeLoc'].value;
         profile.job_location = event.target.form['jobLoc'].value;
         const users = new Users();
-        users.postUser(profile);
+       users.postUser(profile);
       });
     });
   };

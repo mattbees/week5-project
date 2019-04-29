@@ -10,6 +10,16 @@ class RequestHelper {
       console.log('fetch returned');
   }
 
+  post(payload) {
+    return fetch(this.url, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then((response) => response.json());
+  }
+
+
 }
 
 module.exports = RequestHelper;

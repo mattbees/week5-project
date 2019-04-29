@@ -7,67 +7,48 @@ class Users {
     this.data = null;
   };
 
-  getData() {
+  getData(load) {
     const url = `http://localhost:3000/job_swap`;
     const request = new RequestHelper(url);
     request.get()
       .then((data) => {
         this.data = data;
-        PubSub.publish('Users:users-data-loaded', this.data);
+        if (load == 'firstLoad') {
+          PubSub.publish('Users:users-data-loaded', this.data);
+        } else if (load == 'secondLoad') {
+          PubSub.publish('Users:users-data-reloaded', this.data);
+        }
     })
       .catch((message) => {
         console.error(message);
     });
   };
 
-  // This doesn't work because of async issue:
-  // postUser(profile) {
-  //   console.log(profile);
-  //   const coords = this.getLatLong(profile.home_location);
-  //   profile.home_location = coords;
-  //   console.log(profile.home_location);
-  // };
-  //
-  // getLatLong(address) {
-  //   async function latLong(address) {
-  //     const provider = new OpenStreetMapProvider();
-  //     const results = await provider.search({ query: address });
-  //     const coordinates = [];
-  //     coordinates.push(results[0].x);
-  //     coordinates.push(results[0].y);
-  //     console.log(coordinates);
-  //     return coordinates;
-  //   };
-  //   latLong(address);
-  // };
-
-
-
-  // Attempting to code this longhand...:
+  // TODO: Still need to change coords into format needed for map
   postUser(profile) {
-    console.dir(this);
-    async function latLong(object) {
-      const provider = new OpenStreetMapProvider();
-      const results = await provider.search({ query: object.home_location });
-      console.dir(this);
-      this.pushCoordinates(object.home_location, results);
-
-      // let coordinates = [];
-      // coordinates.push(results[0].x);
-      // coordinates.push(results[0].y);
-      // object.home_location = coordinates;
-      console.log(object);
-
-      // I don't like this because I am not abstracting this out as separate function
-      const results2 = await provider.search({ query: object.job_location });
-      coordinates = [];
-      coordinates.push(results2[0].x);
-      coordinates.push(results2[0].y);
-      object.job_location = coordinates;
-      console.log(object);
-    };
-    latLong(profile);
-    // Then need to POST this to db. DOES THIS ALOS NEED TO BE WITHIN ASYNC FUNCTION?
+    const user = {};
+    user.name = profile.name;
+    user.current_job = profile.current_job;
+    const provider = new OpenStreetMapProvider();
+    provider.search({ query: user.home_location })
+    .then( (results1) => {
+      user.home_coords = this.pushCoordinates(user.home_location, results1)
+      // Nesting to retain scope
+      provider.search({ query: user.job_location })
+      .then( (results2) => {
+        user.job_coords = this.pushCoordinates(user.job_location, results2)
+        console.log(user);
+      // POST request
+      const url = `http://localhost:3000/job_swap`;
+      const request = new RequestHelper(url);
+      request.post(user)
+        // GET request
+        .then((users) => {
+            this.getData('secondLoad');
+          })
+          .catch(console.error);
+      }); // END .then
+    }); // END .then
   };
 
   pushCoordinates(property, asyncRes) {
@@ -75,12 +56,8 @@ class Users {
     coordinates.push(asyncRes[0].x);
     coordinates.push(asyncRes[0].y);
     property = coordinates;
+    return property;
   };
-
-
-
-
-
 
 };
 

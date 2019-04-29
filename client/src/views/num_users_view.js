@@ -8,11 +8,20 @@ class NumUsersView {
 
   bindEvents() {
     PubSub.subscribe('Users:users-data-loaded', (events) => {
-      console.log('Users:users-data-loaded SUBSCRIBED');
       this.data = event.detail;
       const numUsers = this.createNumUsers();
       this.element.appendChild(numUsers);
+      PubSub.subscribe('Users:users-data-reloaded', (events) => {
+        this.clearText();
+        this.data = event.detail;
+        const numUsers = this.createNumUsers();
+        this.element.appendChild(numUsers);
+      });
     });
+  };
+
+  clearText() {
+    this.element.innerHTML = '';
   };
 
   createNumUsers() {

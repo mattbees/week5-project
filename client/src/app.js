@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   createProfileFormView.bindEvents();
 
   const users = new Users();
-  users.getData();
+  users.getData('firstLoad');
 
 });
 

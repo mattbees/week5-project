@@ -7,7 +7,6 @@ class CreateProfileIntroView {
 
   bindEvents() {
     PubSub.subscribe('WelcomeOptionsView:create-profile-click', (event) => {
-      console.log('WelcomeOptionsView:create-profile-click SUBSCRIBED');
       this.clearText();
       const formIntro = this.renderFormIntro();
       this.element.appendChild(formIntro);

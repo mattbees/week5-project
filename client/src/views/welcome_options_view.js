@@ -8,7 +8,6 @@ class WelcomeOptionsView {
 
   bindEvents() {
     PubSub.subscribe('Users:users-data-loaded', (event) => {
-      console.log('Users:users-data-loaded SUBSCRIBED');
       this.data = event.detail;
       const welcomeButtons = this.renderButtonsDiv();
       this.element.appendChild(welcomeButtons);
@@ -29,7 +28,6 @@ class WelcomeOptionsView {
     createButton.textContent = 'Create a profile';
     createButton.addEventListener('click', (event) => {
       PubSub.publish('WelcomeOptionsView:create-profile-click');
-      console.log('WelcomeOptionsView:create-profile-click PUBLISHING');
     });
     return createButton;
   };
