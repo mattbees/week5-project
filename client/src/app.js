@@ -1,5 +1,6 @@
-// import
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
+
+const { OpenStreetMapProvider } = require("leaflet-geosearch");
+
 
 const Users = require('./models/users');
 const WelcomeView = require('./views/welcome_view');
