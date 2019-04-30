@@ -8,9 +8,11 @@ const WelcomeOptionsView = require('./views/welcome_options_view');
 const NumUsersView = require('./views/num_users_view');
 const CreateProfileIntroView = require('./views/create_profile_intro_view');
 const CreateProfileFormView = require('./views/create_profile_form_view');
+const MapView = require('./views/map_view');
 
 document.addEventListener('DOMContentLoaded', (event) => {
   console.log('JavaScript loaded');
+
 
   // TEST CODE FOR LAT & LONG:
   // setup
@@ -42,6 +44,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
   createProfileIntroView.bindEvents();
   const createProfileFormView = new CreateProfileFormView(div2);
   createProfileFormView.bindEvents();
+
+  // Create map view
+  const mapView = new MapView(div2);
+  mapView.bindEvents();
 
   const users = new Users();
   users.getData('firstLoad');
