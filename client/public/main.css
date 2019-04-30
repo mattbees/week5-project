@@ -1,7 +1,7 @@
 #map {
-  height: 350px;
+  height: 400px;
 };
 
 .custom-icon {
-  color : blue;
+  background-color: blue;
 };

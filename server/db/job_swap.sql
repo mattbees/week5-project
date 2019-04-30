@@ -8,13 +8,14 @@ CREATE TABLE users(
   home_coords_x DECIMAL,
   home_coords_y DECIMAL,
   job_coords_x DECIMAL,
-  job_coords_y DECIMAL
+  job_coords_y DECIMAL,
+  image_src VARCHAR
 );
 
-INSERT INTO users (name, home_coords_x, home_coords_y, job_coords_x, job_coords_y)
-VALUES ('Johnny Doe', -3.209975, 55.9588971, -3.212165, 55.921384);
-INSERT INTO users (name, home_coords_x, home_coords_y, job_coords_x, job_coords_y)
-VALUES ('Jane Mitchell', -3.209504, 55.925257, -3.225022, 55.958493);
+INSERT INTO users (name, home_coords_x, home_coords_y, job_coords_x, job_coords_y, image_src)
+VALUES ('Johnny Doe', -3.209975, 55.9588971, -3.212165, 55.921384, './images/English-teacher.png');
+INSERT INTO users (name, home_coords_x, home_coords_y, job_coords_x, job_coords_y, image_src)
+VALUES ('Jane Mitchell', -3.209504, 55.925257, -3.225022, 55.958493, './images/Teacher.png');
 
 
 CREATE TABLE job_skills(

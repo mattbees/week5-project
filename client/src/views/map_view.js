@@ -46,28 +46,25 @@ class MapView {
 
   addMarkers(users) {
     users.forEach((user) => {
-      // const customIcon = L.divIcon( {className: 'custom-icon'} );
-      // console.log(typeof customIcon);
-      // customIcon.style.color = `rgb(${this.randomColour()})`;
-      const home = L.marker([parseFloat(user.home_coords_y), parseFloat(user.home_coords_x)]/*,
-        {icon: customIcon}*/).addTo(this.map);
+      let userIcon = null;
+      if (user.image_src != null) {
+        userIcon = L.icon( {
+          iconUrl: user.image_src,
+          iconSize: [40, 40]
+        });
+      } else {
+        userIcon = L.icon( {
+          iconUrl: './images/teacher-vector.png',
+          iconSize: [40, 40]
+        });
+      };
+      const home = L.marker([parseFloat(user.home_coords_y), parseFloat(user.home_coords_x)],
+      {icon: userIcon}).addTo(this.map);
       home.bindPopup(`<b>${user.name}</b><br>lives here.`);
-      const job = L.marker([parseFloat(user.job_coords_y), parseFloat(user.job_coords_x)]/*,
-        {icon: customIcon}*/).addTo(this.map);
+      const job = L.marker([parseFloat(user.job_coords_y), parseFloat(user.job_coords_x)],
+      {icon: userIcon}).addTo(this.map);
       job.bindPopup(`<b>${user.name}</b><br>works here.`);
     });
-  };
-
-  randomColour() {
-    const r = this.randomNumber();
-    const g = this.randomNumber();
-    const b = this.randomNumber();
-    const rgb = [r, g, b];
-    return rgb.toString();
-  };
-
-  randomNumber() {
-    return Math.floor((Math.random() * 255 ));
   };
 
 };
