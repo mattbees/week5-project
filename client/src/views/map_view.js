@@ -45,13 +45,15 @@ class MapView {
   // .openOn(this.map);
 
   addMarkers(users) {
-    let counter = 0;
     users.forEach((user) => {
-      const home = L.marker([parseFloat(user.home_coords_y), parseFloat(user.home_coords_x)])
-      .addTo(this.map);
+      // const customIcon = L.divIcon( {className: 'custom-icon'} );
+      // console.log(typeof customIcon);
+      // customIcon.style.color = `rgb(${this.randomColour()})`;
+      const home = L.marker([parseFloat(user.home_coords_y), parseFloat(user.home_coords_x)]/*,
+        {icon: customIcon}*/).addTo(this.map);
       home.bindPopup(`<b>${user.name}</b><br>lives here.`);
-      const job = L.marker([parseFloat(user.job_coords_y), parseFloat(user.job_coords_x)])
-      .addTo(this.map);
+      const job = L.marker([parseFloat(user.job_coords_y), parseFloat(user.job_coords_x)]/*,
+        {icon: customIcon}*/).addTo(this.map);
       job.bindPopup(`<b>${user.name}</b><br>works here.`);
     });
   };
@@ -65,9 +67,8 @@ class MapView {
   };
 
   randomNumber() {
-    return Math.floor((Math.random() * 255 ) +1);
+    return Math.floor((Math.random() * 255 ));
   };
-
 
 };
 
