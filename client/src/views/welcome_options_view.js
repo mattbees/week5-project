@@ -37,7 +37,6 @@ class WelcomeOptionsView {
     createView.textContent = 'View current jobs';
     createView.addEventListener('click', (event) => {
       PubSub.publish('WelcomeOptionsView:view-jobs-click', this.data);
-      console.log('WelcomeOptionsView:view-jobs-click PUBLISHING');
     });
     return createView;
   };

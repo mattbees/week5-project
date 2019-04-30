@@ -25,38 +25,32 @@ class Users {
   };
 
   // TODO: Still need to change coords into format needed for map
+  // TODO: Error message for no entry to address field.
   postUser(profile) {
     const user = {};
     user.name = profile.name;
-    user.current_job = profile.current_job;
+    // user.current_job = profile.current_job;
     const provider = new OpenStreetMapProvider();
-    provider.search({ query: user.home_location })
-    .then( (results1) => {
-      user.home_coords = this.pushCoordinates(user.home_location, results1)
+    provider.search({ query: profile.home_location })
+    .then( (results_home) => {
+      user.home_coords_x = results_home[0].x;
+      user.home_coords_y = results_home[0].y;
       // Nesting to retain scope
-      provider.search({ query: user.job_location })
-      .then( (results2) => {
-        user.job_coords = this.pushCoordinates(user.job_location, results2)
-        console.log(user);
-      // POST request
-      const url = `http://localhost:3000/job_swap`;
-      const request = new RequestHelper(url);
-      request.post(user)
+      provider.search({ query: profile.job_location })
+      .then( (results_job) => {
+        user.job_coords_x = results_job[0].x;
+        user.job_coords_y = results_job[0].y;
+        // POST request
+        const url = `http://localhost:3000/job_swap`;
+        const request = new RequestHelper(url);
+        request.post(user)
         // GET request
         .then((users) => {
-            this.getData('secondLoad');
-          })
-          .catch(console.error);
+          this.getData('secondLoad');
+        })
+        .catch(console.error);
       }); // END .then
     }); // END .then
-  };
-
-  pushCoordinates(property, asyncRes) {
-    let coordinates = [];
-    coordinates.push(asyncRes[0].x);
-    coordinates.push(asyncRes[0].y);
-    property = coordinates;
-    return property;
   };
 
 };

@@ -5,15 +5,17 @@ DROP TABLE job_skills;
 CREATE TABLE users(
   id SERIAL PRIMARY KEY,
   name VARCHAR(255),
-  current_job VARCHAR(255),
-  home_location VARCHAR,
-  job_location VARCHAR
+  home_coords_x DECIMAL,
+  home_coords_y DECIMAL,
+  job_coords_x DECIMAL,
+  job_coords_y DECIMAL
 );
 
-INSERT INTO users (name, current_job) VALUES ('Johnny Doe', 'Shop Assistant');
-INSERT INTO users (name, current_job) VALUES ('Jane Mitchell', 'Administrator');
-INSERT INTO users (name, current_job) VALUES ('Daniel Armstrong', 'Assistant Manager');
-INSERT INTO users (name, current_job) VALUES ('Sarah McKay', 'Hair Dresser');
+INSERT INTO users (name, home_coords_x, home_coords_y, job_coords_x, job_coords_y)
+VALUES ('Johnny Doe', -3.209975, 55.9588971, -3.212165, 55.921384);
+INSERT INTO users (name, home_coords_x, home_coords_y, job_coords_x, job_coords_y)
+VALUES ('Jane Mitchell', -3.209504, 55.925257, -3.225022, 55.958493);
+
 
 CREATE TABLE job_skills(
   id SERIAL PRIMARY KEY,

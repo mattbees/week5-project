@@ -15,8 +15,7 @@ class MapView {
       const mapDiv = this.createMap();
       this.element.appendChild(mapDiv);
       this.addMap();
-      console.table(event.detail);
-      this.addMarker(event.detail);
+      this.addMarkers(event.detail);
     });
 
   };
@@ -38,19 +37,39 @@ class MapView {
     }).addTo(this.map);
   };
 
-  addMarker() {
-    const marker = L.marker([55.95, -3.18]).addTo(this.map);
-    marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
-    // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-    // var popup = L.popup()
-    // .setLatLng([51.5, -0.09])
-    // .setContent("I am a standalone popup.")
-    // .openOn(this.map);
+  // Marker options:
+  // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+  // var popup = L.popup()
+  // .setLatLng([51.5, -0.09])
+  // .setContent("I am a standalone popup.")
+  // .openOn(this.map);
+
+  addMarkers(users) {
+    let counter = 0;
+    users.forEach((user) => {
+      const home = L.marker([parseFloat(user.home_coords_y), parseFloat(user.home_coords_x)])
+      .addTo(this.map);
+      home.bindPopup(`<b>${user.name}</b><br>lives here.`);
+      const job = L.marker([parseFloat(user.job_coords_y), parseFloat(user.job_coords_x)])
+      .addTo(this.map);
+      job.bindPopup(`<b>${user.name}</b><br>works here.`);
+    });
   };
 
+  randomColour() {
+    const r = this.randomNumber();
+    const g = this.randomNumber();
+    const b = this.randomNumber();
+    const rgb = [r, g, b];
+    return rgb.toString();
+  };
+
+  randomNumber() {
+    return Math.floor((Math.random() * 255 ) +1);
+  };
+
+
 };
-
-
 
 
 module.exports = MapView;

@@ -16,11 +16,10 @@ class CreateProfileFormView {
         event.preventDefault();
         const profile = {};
         profile.name = event.target.form['name'].value;
-        profile.current_job = event.target.form['job'].value;
         profile.home_location = event.target.form['homeLoc'].value;
         profile.job_location = event.target.form['jobLoc'].value;
         const users = new Users();
-       users.postUser(profile);
+        users.postUser(profile);
       });
     });
   };
@@ -33,12 +32,10 @@ class CreateProfileFormView {
     const formDiv = document.createElement('div');
     const form = document.createElement('form');
     const nameDiv = this.createNameInput();
-    const jobDiv = this.createJobInput();
     const homeLocDiv = this.createHomeLocInput();
     const jobLocDiv = this.createJobLocInput();
     const formSubmit = this.createSubmit();
     form.appendChild(nameDiv);
-    form.appendChild(jobDiv);
     form.appendChild(homeLocDiv);
     form.appendChild(jobLocDiv);
     form.appendChild(formSubmit);
@@ -59,17 +56,17 @@ class CreateProfileFormView {
   };
 
 
-  createJobInput() {
-    const jobDiv = document.createElement('div');
-    const label2 = document.createElement('label');
-    label2.for = 'job';
-    label2.textContent = 'Job: ';
-    const input2 = document.createElement('input');
-    input2.id = 'job';
-    jobDiv.appendChild(label2);
-    jobDiv.appendChild(input2);
-    return jobDiv;
-  };
+  // createJobInput() {
+  //   const jobDiv = document.createElement('div');
+  //   const label2 = document.createElement('label');
+  //   label2.for = 'job';
+  //   label2.textContent = 'Job: ';
+  //   const input2 = document.createElement('input');
+  //   input2.id = 'job';
+  //   jobDiv.appendChild(label2);
+  //   jobDiv.appendChild(input2);
+  //   return jobDiv;
+  // };
 
   createHomeLocInput() {
     const homeLocDiv = document.createElement('div');

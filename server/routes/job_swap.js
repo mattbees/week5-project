@@ -20,9 +20,12 @@ router.get('/:id', function(req, res) {
 
 // POST to create a new user - UPDATE FOR REMAINING PROPERTIES
 router.post('/', function(req, res) {
-  SqlRunner.run("INSERT INTO users (name, current_job) VALUES ($1, $2)", [
+  SqlRunner.run("INSERT INTO users (name, home_coords_x, home_coords_y, job_coords_x, job_coords_y) VALUES ($1, $2, $3, $4, $5)", [
     req.body.name,
-    req.body.current_job,
+    req.body.home_coords_x,
+    req.body.home_coords_y,
+    req.body.job_coords_x,
+    req.body.job_coords_y
   ]).then((result) => {
     res.status(201).json(result);
   });
