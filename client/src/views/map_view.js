@@ -71,14 +71,18 @@ class MapView {
 
   displayUsers(users) {
     const cardsDiv = document.createElement('div');
-    // cardsDiv.classList.add('.cards');
     users.forEach((user) => {
       const card = document.createElement('div');
+      card.classList.add('card');
+      card.addEventListener('mouseover', (event) => {
+        console.log('MOUSEOVER');
+      });
       const name = document.createElement('h3');
       name.textContent = user.name;
       const distance = document.createElement('p');
       distance.textContent = `${user.name} works x km from your home.`
       const categories = document.createElement('ul');
+      categories.classList.add('hidden');
       const home = this.createHomeItem(user);
       const job = this.createJobItem(user);
       categories.appendChild(home);

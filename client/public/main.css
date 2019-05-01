@@ -1,3 +1,7 @@
+body {
+  font-family: arial;
+}
+
 #map {
   height: 600px;
 }
@@ -9,4 +13,18 @@
   max-height: 600px;
   padding: 5px;
   overflow-y: scroll;
+}
+
+.card {
+  border: 1px solid;
+  border-radius: 4px;
+  margin-bottom: 3px;
+}
+
+.card h3, p, li {
+  margin: 3px 5px 3px 5px;
+}
+
+.hidden {
+  visibility: hidden;
 }
