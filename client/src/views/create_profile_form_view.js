@@ -16,9 +16,12 @@ class CreateProfileFormView {
         event.preventDefault();
         const profile = {};
         profile.name = event.target.form['name'].value;
-        profile.home_location = event.target.form['homeLoc'].value;
-        profile.job_location = event.target.form['jobLoc'].value;
+        profile.home_location = event.target.form['home-loc'].value;
+        profile.job_location = event.target.form['job-loc'].value;
         const users = new Users();
+        const tempLog = document.getElementById('img-input').files[0];
+        console.log(tempLog);
+        console.dir(event.target.form);
         users.postUser(profile);
       });
     });
@@ -75,10 +78,10 @@ class CreateProfileFormView {
   createHomeLocInput() {
     const homeLocDiv = document.createElement('div');
     const label3 = document.createElement('label');
-    label3.for = 'homeLoc';
+    label3.for = 'home-loc';
     label3.textContent = 'Home address: ';
     const input3 = document.createElement('input');
-    input3.id = 'homeLoc';
+    input3.id = 'home-loc';
     homeLocDiv.appendChild(label3);
     homeLocDiv.appendChild(input3);
     return homeLocDiv;
@@ -88,10 +91,10 @@ class CreateProfileFormView {
   createJobLocInput() {
     const jobLocDiv = document.createElement('div');
     const label4 = document.createElement('label');
-    label4.for = 'jobLoc';
+    label4.for = 'job-loc';
     label4.textContent = 'Work address: ';
     const input4 = document.createElement('input');
-    input4.id = 'jobLoc';
+    input4.id = 'job-loc';
     jobLocDiv.appendChild(label4);
     jobLocDiv.appendChild(input4);
     return jobLocDiv;
