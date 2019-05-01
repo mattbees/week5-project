@@ -1,7 +1,12 @@
 #map {
-  height: 400px;
-};
+  height: 600px;
+}
 
-.custom-icon {
-  background-color: blue;
-};
+#sidebar {
+  background-color: #CEEAED;
+  float: right;
+  width: 20%;
+  max-height: 600px;
+  padding: 5px;
+  overflow-y: scroll;
+}

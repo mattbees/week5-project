@@ -18,7 +18,6 @@ class MapView {
       this.addMarkers(event.detail);
       this.checkDistance(); // calling test function
     });
-
   };
 
   clearText() {
@@ -63,14 +62,11 @@ class MapView {
   };
 
   createSidebar(users) {
-    const div = document.createElement('div');
-    div.id = 'sidebar';
-    div.style.float = 'right';
-    div.style.width = '20%';
-    div.textContent = 'Test text';
+    const sideDiv = document.createElement('div');
+    sideDiv.id = 'sidebar';
     const list = this.displayUsers(users);
-    div.appendChild(list);
-    return div;
+    sideDiv.appendChild(list);
+    return sideDiv;
   };
 
   displayUsers(users) {
