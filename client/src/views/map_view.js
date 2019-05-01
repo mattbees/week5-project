@@ -83,6 +83,9 @@ class MapView {
     users.forEach((user) => {
       const item = document.createElement('li');
       item.textContent = user.name;
+      item.addEventListener('click', (event) => {
+        console.log('ITEM CLICK');
+      });
       list.appendChild(item);
     });
     return list;
