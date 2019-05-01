@@ -18,8 +18,46 @@ class MapView {
       this.addMarkers(event.detail);
       this.checkDistance(); // calling test function
     });
+    // NEW CODE
+    PubSub.subscribe('Addresses:coords-ready', (event) => {
+      console.log('ADDRESSES: SUBBED');
+      console.dir(event.detail);
+      // render the map
+      // take the subbed coords and make a marker
+      // centre the map at subbed marker
+      // populate map with db data
+    });
   };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// OLD CODE - KEEP SOME OF IT??
   clearText() {
     this.element.innerHTML = '';
   };

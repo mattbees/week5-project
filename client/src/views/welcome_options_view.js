@@ -9,9 +9,14 @@ class WelcomeOptionsView {
   bindEvents() {
     PubSub.subscribe('Users:users-data-loaded', (event) => {
       this.data = event.detail; // UNNECESSARY?
+      this.clearText();
       const inputForm = this.renderInputForm();
       this.element.appendChild(inputForm);
     });
+  };
+
+  clearText() {
+    this.element.innerHTML = '';
   };
 
   renderInputForm() {
