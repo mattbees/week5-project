@@ -1,5 +1,3 @@
-// TODO: Subscribe to Users:users-data-reloaded
-// TODO:
 
 const PubSub = require('../helpers/pub_sub');
 
@@ -16,6 +14,7 @@ class MapView {
       this.element.appendChild(mapDiv);
       this.addMap();
       this.addMarkers(event.detail);
+      this.checkDistance();
     });
 
   };
@@ -37,26 +36,13 @@ class MapView {
     }).addTo(this.map);
   };
 
-  // Marker options:
-  // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-  // var popup = L.popup()
-  // .setLatLng([51.5, -0.09])
-  // .setContent("I am a standalone popup.")
-  // .openOn(this.map);
-
   addMarkers(users) {
     users.forEach((user) => {
       let userIcon = null;
       if (user.image_src != null) {
-        userIcon = L.icon( {
-          iconUrl: user.image_src,
-          iconSize: [40, 40]
-        });
+        userIcon = L.icon( { iconUrl: user.image_src, iconSize: [40, 40] });
       } else {
-        userIcon = L.icon( {
-          iconUrl: './images/teacher-vector.png',
-          iconSize: [40, 40]
-        });
+        userIcon = L.icon( { iconUrl: './images/teacher-vector.png', iconSize: [40, 40] });
       };
       const home = L.marker([parseFloat(user.home_coords_y), parseFloat(user.home_coords_x)],
       {icon: userIcon}).addTo(this.map);
@@ -66,6 +52,18 @@ class MapView {
       job.bindPopup(`<b>${user.name}</b><br>works here.`);
     });
   };
+
+  checkDistance() {
+    const marker1 = L.marker([55.952, -3.193]).addTo(this.map);
+    const marker2 = L.marker([55.949, -3.209]).addTo(this.map);
+    const point1 = L.latLng(55.952, -3.193);
+    const point2 = L.latLng(55.949, -3.209);
+    console.dir(this.map.options.crs);
+    const distance = this.map.options.crs.distance(point1, point2);
+    console.log(distance);
+  };
+
+
 
 };
 
