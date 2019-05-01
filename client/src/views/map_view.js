@@ -5,6 +5,7 @@ class MapView {
   constructor(element) {
     this.element = element;
     this.map = null;
+    this.centre = [];
   };
 
   bindEvents() {
@@ -14,18 +15,17 @@ class MapView {
     });
     // NEW CODE
     PubSub.subscribe('Addresses:coords-ready', (event) => {
-      console.log('ADDRESSES: SUBBED');
-      console.dir(event.detail);
-      // take the subbed coords and make a marker
-      // centre the map at subbed marker
+      const coords = event.detail;
+      this.centre = [coords.y, coords.x];
       // populate map with db data
       this.clearText();
       const sidebar = this.createSidebar(/*event.detail*/);
       this.element.appendChild(sidebar);
       const mapDiv = this.createMap();
       this.element.appendChild(mapDiv);
-      this.addMap(event.detail);
-      this.addCentreMarker(event.detail);
+      this.addMap(coords);
+      this.addCentreMarker(coords);
+      this.addTestMarker();
     });
   };
 
@@ -51,15 +51,40 @@ class MapView {
   };
 
   addCentreMarker(coords) {
-    console.dir(coords);
     const centreMarker = L.marker([parseFloat(coords.y), parseFloat(coords.x)]).addTo(this.map);
+    centreMarker.id = 'centre-marker';
     centreMarker.bindPopup(`<b>You live here.</b>`);
   }
 
+/*=====================*/
+  // Adds a test marker with specified coords. Popup states distance from centre.
+  addTestMarker() {
+    const testMarker = L.marker([55.87, -3.67]).addTo(this.map);
+    testMarker.id = 'test-marker';
+    const distance = ((this.checkTestDistance(testMarker))/1000).toFixed(1);
+    testMarker.bindPopup(`<b>${distance} km from where you live.</b>`);
+  }
+  // accesses property with underscore - problem??
+  checkTestDistance(marker) {
+    const point1 = L.latLng(marker._latlng.lat, marker._latlng.lng);
+    const point2 = L.latLng(this.centre[0], this.centre[1]);
+    const distance = this.map.options.crs.distance(point1, point2);
+    return distance;
+  };
+/*=======================*/
 
 
 
 
+  // Test function:
+  checkDistance() {
+    const marker1 = L.marker([55.952, -3.193]).addTo(this.map);
+    const marker2 = L.marker([55.949, -3.209]).addTo(this.map);
+    const point1 = L.latLng(55.952, -3.193);
+    const point2 = L.latLng(55.949, -3.209);
+    const distance = this.map.options.crs.distance(point1, point2);
+    console.log(distance);
+  };
 
 
 
@@ -77,16 +102,6 @@ class MapView {
     });
   };
 
-  // Test function:
-  checkDistance() {
-    const marker1 = L.marker([55.952, -3.193]).addTo(this.map);
-    const marker2 = L.marker([55.949, -3.209]).addTo(this.map);
-    const point1 = L.latLng(55.952, -3.193);
-    const point2 = L.latLng(55.949, -3.209);
-    console.dir(this.map.options.crs);
-    const distance = this.map.options.crs.distance(point1, point2);
-    console.log(distance);
-  };
 
   createSidebar(users) {
     const sideDiv = document.createElement('div');
