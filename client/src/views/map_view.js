@@ -9,55 +9,26 @@ class MapView {
 
   bindEvents() {
     PubSub.subscribe('Users:users-data-reloaded', (event) => {
-      this.clearText();
-      const sidebar = this.createSidebar(event.detail);
-      this.element.appendChild(sidebar);
-      const mapDiv = this.createMap();
-      this.element.appendChild(mapDiv);
-      this.addMap();
-      this.addMarkers(event.detail);
-      this.checkDistance(); // calling test function
+      // this.addMarkers(event.detail);
+      // this.checkDistance(); // calling test function
     });
     // NEW CODE
     PubSub.subscribe('Addresses:coords-ready', (event) => {
       console.log('ADDRESSES: SUBBED');
       console.dir(event.detail);
-      // render the map
       // take the subbed coords and make a marker
       // centre the map at subbed marker
       // populate map with db data
+      this.clearText();
+      const sidebar = this.createSidebar(/*event.detail*/);
+      this.element.appendChild(sidebar);
+      const mapDiv = this.createMap();
+      this.element.appendChild(mapDiv);
+      this.addMap(event.detail);
+      this.addCentreMarker(event.detail);
     });
   };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// OLD CODE - KEEP SOME OF IT??
   clearText() {
     this.element.innerHTML = '';
   };
@@ -68,13 +39,31 @@ class MapView {
     return div;
   };
 
-  addMap() {
-    this.map = L.map('map').setView([55.953, -3.188], 12);
+  addMap(coords) {
+    const x = coords.x;
+    console.dir(x);
+    const y = coords.y;
+    console.dir(y);
+    this.map = L.map('map').setView([y, x], 12);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
   };
 
+  addCentreMarker(coords) {
+    console.dir(coords);
+    const centreMarker = L.marker([parseFloat(coords.y), parseFloat(coords.x)]).addTo(this.map);
+    centreMarker.bindPopup(`<b>You live here.</b>`);
+  }
+
+
+
+
+
+
+
+
+// OLD:
   addMarkers(users) {
     users.forEach((user) => {
       let userIcon = null;
@@ -102,8 +91,8 @@ class MapView {
   createSidebar(users) {
     const sideDiv = document.createElement('div');
     sideDiv.id = 'sidebar';
-    const list = this.displayUsers(users);
-    sideDiv.appendChild(list);
+    // const list = this.displayUsers(users);
+    // sideDiv.appendChild(list);
     return sideDiv;
   };
 
