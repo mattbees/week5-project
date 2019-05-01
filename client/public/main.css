@@ -2,6 +2,11 @@ body {
   font-family: arial;
 }
 
+#div2 {
+  height: 600px;
+  text-align: center;
+}
+
 #map {
   height: 600px;
 }

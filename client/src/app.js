@@ -9,6 +9,7 @@ const NumUsersView = require('./views/num_users_view');
 const CreateProfileIntroView = require('./views/create_profile_intro_view');
 const CreateProfileFormView = require('./views/create_profile_form_view');
 const MapView = require('./views/map_view');
+const Addresses = require('./models/addresses');
 
 document.addEventListener('DOMContentLoaded', (event) => {
   console.log('JavaScript loaded');
@@ -48,6 +49,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   // Create map view
   const mapView = new MapView(div2);
   mapView.bindEvents();
+
+  const addresses = new Addresses();
+  addresses.bindEvents();
 
   const users = new Users();
   users.getData('firstLoad');
