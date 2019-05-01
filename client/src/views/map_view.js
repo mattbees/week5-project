@@ -68,25 +68,55 @@ class MapView {
     div.style.float = 'right';
     div.style.width = '20%';
     div.textContent = 'Test text';
-    const list = this.listUsers(users);
+    const list = this.displayUsers(users);
     div.appendChild(list);
     return div;
   };
 
-  listUsers(users) {
-    // create ul. loop through the users and create an li for each one. append to sidebar.
-    console.dir(users);
-    const list = document.createElement('ul');
+  displayUsers(users) {
+    const cardsDiv = document.createElement('div');
+    // cardsDiv.classList.add('.cards');
     users.forEach((user) => {
-      const item = document.createElement('li');
-      item.textContent = user.name;
-      item.addEventListener('click', (event) => {
-        PubSub.publish('MapView:list-item-click', user.id);
-        console.dir(user.id);
-      });
-      list.appendChild(item);
+      const card = document.createElement('div');
+      const name = document.createElement('h3');
+      name.textContent = user.name;
+      const distance = document.createElement('p');
+      distance.textContent = `${user.name} works x km from your home.`
+      const categories = document.createElement('ul');
+      const home = this.createHomeItem(user);
+      const job = this.createJobItem(user);
+      categories.appendChild(home);
+      categories.appendChild(job);
+      card.appendChild(name);
+      card.appendChild(distance);
+      card.appendChild(categories);
+      cardsDiv.appendChild(card);
     });
-    return list;
+    return cardsDiv;
+  };
+
+  createHomeItem(user) {
+    const home = document.createElement('li');
+    home.textContent = 'Home address';
+    home.id = user.id;
+    home.category = 'home';
+    home.addEventListener('click', (event) => {
+      PubSub.publish('MapView:list-item-click', home);
+      console.dir(home);
+    });
+    return home;
+  };
+
+  createJobItem(user) {
+    const job = document.createElement('li');
+    job.textContent = 'Work address';
+    job.id = user.id;
+    job.category = 'job';
+    job.addEventListener('click', (event) => {
+      PubSub.publish('MapView:list-item-click', job);
+      console.dir(job);
+    });
+    return job;
   };
 
   createHomeMarker(user, userIcon) {
@@ -105,6 +135,14 @@ class MapView {
     job.bindPopup(`<b>${user.name}</b><br>works here.`);
   };
 
+  iconSubscribe(icon) {
+    // sub to list-item-click. check if id matches and show popups
+    PubSub.subscribe('MapView:list-item-click', (event) => {
+      if (icon.id === event.detail) {
+
+      }
+    });
+  };
 
 };
 
