@@ -34,10 +34,12 @@ class CreateProfileFormView {
     const nameDiv = this.createNameInput();
     const homeLocDiv = this.createHomeLocInput();
     const jobLocDiv = this.createJobLocInput();
+    const imgDiv = this.createImgInput();
     const formSubmit = this.createSubmit();
     form.appendChild(nameDiv);
     form.appendChild(homeLocDiv);
     form.appendChild(jobLocDiv);
+    form.appendChild(imgDiv);
     form.appendChild(formSubmit);
     formDiv.appendChild(form);
     return formDiv;
@@ -56,17 +58,19 @@ class CreateProfileFormView {
   };
 
 
-  // createJobInput() {
-  //   const jobDiv = document.createElement('div');
-  //   const label2 = document.createElement('label');
-  //   label2.for = 'job';
-  //   label2.textContent = 'Job: ';
-  //   const input2 = document.createElement('input');
-  //   input2.id = 'job';
-  //   jobDiv.appendChild(label2);
-  //   jobDiv.appendChild(input2);
-  //   return jobDiv;
-  // };
+  createImgInput() {
+    const imgDiv = document.createElement('div');
+    const imgInput = document.createElement('input');
+    imgInput.type = 'file';
+    imgInput.id = 'img-input';
+    imgInput.accept = 'image/*';
+    const label = document.createElement('label');
+    label.for = 'img-input';
+    label.textContent = 'Upload a photo';
+    imgDiv.appendChild(label);
+    imgDiv.appendChild(imgInput);
+    return imgDiv;
+  };
 
   createHomeLocInput() {
     const homeLocDiv = document.createElement('div');
