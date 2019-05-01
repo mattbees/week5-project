@@ -10,11 +10,13 @@ class MapView {
   bindEvents() {
     PubSub.subscribe('Users:users-data-reloaded', (event) => {
       this.clearText();
+      const sidebar = this.createSidebar(event.detail);
+      this.element.appendChild(sidebar);
       const mapDiv = this.createMap();
       this.element.appendChild(mapDiv);
       this.addMap();
       this.addMarkers(event.detail);
-      this.checkDistance();
+      this.checkDistance(); // calling test function
     });
 
   };
@@ -53,6 +55,7 @@ class MapView {
     });
   };
 
+  // Test function:
   checkDistance() {
     const marker1 = L.marker([55.952, -3.193]).addTo(this.map);
     const marker2 = L.marker([55.949, -3.209]).addTo(this.map);
@@ -63,7 +66,27 @@ class MapView {
     console.log(distance);
   };
 
+  createSidebar(users) {
+    const div = document.createElement('div');
+    div.id = 'sidebar';
+    div.style.float = 'right';
+    div.style.width = '20%';
+    div.textContent = 'Test text';
+    const list = this.listUsers(users);
+    div.appendChild(list);
+    return div;
+  };
 
+  listUsers(users) {
+    // create ul. loop through the users and create an li for each one. append to sidebar.
+    const list = document.createElement('ul');
+    users.forEach((user) => {
+      const item = document.createElement('li');
+      item.textContent = user.name;
+      list.appendChild(item);
+    });
+    return list;
+  };
 
 };
 
