@@ -26,6 +26,7 @@ class MapView {
       this.addMap(coords);
       this.addCentreMarker(coords);
       this.addJobMarkers(this.data);
+      this.sortByDistance();
     });
   };
 
@@ -86,8 +87,14 @@ class MapView {
     return distance;
   };
 
-
-
+  sortByDistance(jobs) {
+    const sortedJobs = [...this.data];
+    sortedJobs.forEach((job) => {
+      job.distance = this.checkDistance(job);
+    });
+    sortedJobs.sort(function(a, b) { return a.distance - b.distance} );
+    console.dir(sortedJobs);
+  };
 
 
 
