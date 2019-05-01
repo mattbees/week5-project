@@ -18,10 +18,10 @@ class CreateProfileFormView {
         profile.name = event.target.form['name'].value;
         profile.home_location = event.target.form['home-loc'].value;
         profile.job_location = event.target.form['job-loc'].value;
+        const filename = document.getElementById('img-input').files[0];
+        profile.image_src = filename;
         const users = new Users();
-        const tempLog = document.getElementById('img-input').files[0];
-        console.log(tempLog);
-        console.dir(event.target.form);
+        console.dir(profile);
         users.postUser(profile);
       });
     });
