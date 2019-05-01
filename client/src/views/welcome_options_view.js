@@ -3,16 +3,16 @@ const PubSub = require('../helpers/pub_sub');
 class WelcomeOptionsView {
   constructor(element) {
     this.element = element;
-    this.data = null;
+    // this.data = null;
   };
 
   bindEvents() {
-    PubSub.subscribe('Users:users-data-loaded', (event) => {
-      this.data = event.detail; // UNNECESSARY?
-      this.clearText();
-      const inputForm = this.renderInputForm();
-      this.element.appendChild(inputForm);
-    });
+    this.clearText();
+    const inputForm = this.renderInputForm();
+    this.element.appendChild(inputForm);
+    // PubSub.subscribe('Users:users-data-loaded', (event) => {
+    //   this.data = event.detail; // UNNECESSARY?
+    // });
   };
 
   clearText() {

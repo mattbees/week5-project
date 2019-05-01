@@ -4,14 +4,14 @@ const PubSub = require('../helpers/pub_sub');
 class MapView {
   constructor(element) {
     this.element = element;
+    this.data = null;
     this.map = null;
     this.centre = [];
   };
 
   bindEvents() {
-    PubSub.subscribe('Users:users-data-reloaded', (event) => {
-      // this.addMarkers(event.detail);
-      // this.checkDistance(); // calling test function
+    PubSub.subscribe('Users:users-data-loaded', (event) => {
+      this.data = event.detail;
     });
     // NEW CODE
     PubSub.subscribe('Addresses:coords-ready', (event) => {
@@ -25,7 +25,7 @@ class MapView {
       this.element.appendChild(mapDiv);
       this.addMap(coords);
       this.addCentreMarker(coords);
-      this.addTestMarker();
+      this.addJobMarkers(this.data);
     });
   };
 
@@ -56,35 +56,45 @@ class MapView {
     centreMarker.bindPopup(`<b>You live here.</b>`);
   }
 
-/*=====================*/
-  // Adds a test marker with specified coords. Popup states distance from centre.
-  addTestMarker() {
-    const testMarker = L.marker([55.87, -3.67]).addTo(this.map);
-    testMarker.id = 'test-marker';
-    const distance = ((this.checkTestDistance(testMarker))/1000).toFixed(1);
-    testMarker.bindPopup(`<b>${distance} km from where you live.</b>`);
-  }
-  // accesses property with underscore - problem??
-  checkTestDistance(marker) {
-    const point1 = L.latLng(marker._latlng.lat, marker._latlng.lng);
+  addJobMarkers(jobs) {
+    jobs.forEach((job) => {
+      let icon = null;
+      if (job.image_src != null) {
+        icon = L.icon( { iconUrl: job.image_src, iconSize: [40, 40] });
+      } else {
+        icon = L.icon( { iconUrl: './images/general.png', iconSize: [40, 40] });
+      };
+      this.createJobMarker(job, icon);
+    });
+  };
+
+  createJobMarker(job, icon) {
+    const marker = L.marker([parseFloat(job.coords_y), parseFloat(job.coords_x)],
+    {icon: icon}).addTo(this.map);
+    marker.id = job.id;
+    const distance = ((this.checkDistance(job))/1000).toFixed(1);
+    marker.bindPopup(`<b>${job.title} vacancy</b><br />${distance} km from where you live.`);
+    PubSub.subscribe('MapView:list-item-click', (event) => {
+      this.markerPopup(job, event);
+    });
+  };
+
+  checkDistance(job) {
+    const point1 = L.latLng(job.coords_y, job.coords_x);
     const point2 = L.latLng(this.centre[0], this.centre[1]);
     const distance = this.map.options.crs.distance(point1, point2);
     return distance;
   };
-/*=======================*/
 
 
 
 
-  // Test function:
-  checkDistance() {
-    const marker1 = L.marker([55.952, -3.193]).addTo(this.map);
-    const marker2 = L.marker([55.949, -3.209]).addTo(this.map);
-    const point1 = L.latLng(55.952, -3.193);
-    const point2 = L.latLng(55.949, -3.209);
-    const distance = this.map.options.crs.distance(point1, point2);
-    console.log(distance);
-  };
+
+
+
+
+
+
 
 
 
@@ -175,27 +185,27 @@ class MapView {
     return job;
   };
 
-  createHomeMarker(user, userIcon) {
-    const home = L.marker([parseFloat(user.home_coords_y), parseFloat(user.home_coords_x)],
-    {icon: userIcon}).addTo(this.map);
-    home.id = user.id;
-    home.category = 'home';
-    home.bindPopup(`<b>${user.name}</b><br>lives here.`);
-    PubSub.subscribe('MapView:list-item-click', (event) => {
-      this.markerPopup(home, event);
-    });
-  };
-
-  createJobMarker(user, userIcon) {
-    const job = L.marker([parseFloat(user.job_coords_y), parseFloat(user.job_coords_x)],
-    {icon: userIcon}).addTo(this.map);
-    job.id = user.id;
-    job.category = 'work';
-    job.bindPopup(`<b>${user.name}</b><br>works here.`);
-    PubSub.subscribe('MapView:list-item-click', (event) => {
-      this.markerPopup(job, event);
-    });
-  };
+  // createHomeMarker(user, userIcon) {
+  //   const home = L.marker([parseFloat(user.home_coords_y), parseFloat(user.home_coords_x)],
+  //   {icon: userIcon}).addTo(this.map);
+  //   home.id = user.id;
+  //   home.category = 'home';
+  //   home.bindPopup(`<b>${user.name}</b><br>lives here.`);
+  //   PubSub.subscribe('MapView:list-item-click', (event) => {
+  //     this.markerPopup(home, event);
+  //   });
+  // };
+  //
+  // createJobMarker(user, userIcon) {
+  //   const job = L.marker([parseFloat(user.job_coords_y), parseFloat(user.job_coords_x)],
+  //   {icon: userIcon}).addTo(this.map);
+  //   job.id = user.id;
+  //   job.category = 'work';
+  //   job.bindPopup(`<b>${user.name}</b><br>works here.`);
+  //   PubSub.subscribe('MapView:list-item-click', (event) => {
+  //     this.markerPopup(job, event);
+  //   });
+  // };
 
   markerPopup(marker, event) {
       if (marker.id == event.detail.id && marker.category === event.detail.category) {
