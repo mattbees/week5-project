@@ -1,6 +1,7 @@
 DROP TABLE users_job_skills;
 DROP TABLE users;
 DROP TABLE job_skills;
+DROP TABLE jobs;
 
 CREATE TABLE users(
   id SERIAL PRIMARY KEY,
@@ -34,3 +35,23 @@ CREATE TABLE users_job_skills(
   user_id INT REFERENCES users(id),
   job_skill_id INT REFERENCES job_skills(id)
 );
+
+CREATE TABLE jobs(
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255),
+  address VARCHAR(255),
+  coords_x DECIMAL,
+  coords_y DECIMAL,
+  image_src VARCHAR
+);
+
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Chef', '17 Corstorphine High St, Edinburgh EH12 7SU', -3.2834146, 55.9405591, './images/catering.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Office Manager', '23 Thistle St, Edinburgh EH2 1DF', -3.1969917, 55.9543969, './images/admin.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Branch Supervisor', '144 Princes Street Edinburgh EH2 4EQ', -3.2072321, 55.9503567, './images/finance.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Administrator', '4 East Market Street Edinburgh EH8 8BG', -3.1834447, 55.951519, './images/general.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Sales Assistant', '48 Princes St, Edinburgh EH2 2YJ', -3.1937887, 55.9526596, './images/shop.png');
