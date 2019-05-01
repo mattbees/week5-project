@@ -28,7 +28,8 @@ class Users {
   postUser(profile) {
     const user = {};
     user.name = profile.name;
-    user.image_src = `./public/images/${profile.image_src}`;
+    console.log(profile.image_src.name);
+    user.image_src = `./images/${profile.image_src.name}`;
     // user.current_job = profile.current_job;
     const provider = new OpenStreetMapProvider();
     provider.search({ query: profile.home_location })
