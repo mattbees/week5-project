@@ -74,25 +74,39 @@ class MapView {
     users.forEach((user) => {
       const card = document.createElement('div');
       card.classList.add('card');
-      card.addEventListener('mouseover', (event) => {
-        console.log('MOUSEOVER');
-      });
       const name = document.createElement('h3');
       name.textContent = user.name;
+      name.addEventListener('click', (event) => {
+        if (card.childNodes.length < 3) {
+          console.log('LOG');
+          const categories = this.addCategories(user);
+          card.innerHTML = "";
+          card.appendChild(name);
+          card.appendChild(distance);
+          card.appendChild(categories);
+        } else {
+          console.log('ELSE LOG');
+          card.innerHTML = "";
+          card.appendChild(name);
+          card.appendChild(distance);
+        }
+      });
       const distance = document.createElement('p');
       distance.textContent = `${user.name} works x km from your home.`
-      const categories = document.createElement('ul');
-      categories.classList.add('hidden');
-      const home = this.createHomeItem(user);
-      const job = this.createJobItem(user);
-      categories.appendChild(home);
-      categories.appendChild(job);
       card.appendChild(name);
       card.appendChild(distance);
-      card.appendChild(categories);
       cardsDiv.appendChild(card);
     });
     return cardsDiv;
+  };
+
+  addCategories(user) {
+    const categories = document.createElement('ul');
+    const home = this.createHomeItem(user);
+    const job = this.createJobItem(user);
+    categories.appendChild(home);
+    categories.appendChild(job);
+    return categories;
   };
 
   createHomeItem(user) {
@@ -111,7 +125,7 @@ class MapView {
     const job = document.createElement('li');
     job.textContent = 'Work address';
     job.id = user.id;
-    job.category = 'job';
+    job.category = 'work';
     job.addEventListener('click', (event) => {
       PubSub.publish('MapView:list-item-click', job);
       console.dir(job);
@@ -125,26 +139,29 @@ class MapView {
     home.id = user.id;
     home.category = 'home';
     home.bindPopup(`<b>${user.name}</b><br>lives here.`);
+    PubSub.subscribe('MapView:list-item-click', (event) => {
+      this.markerPopup(home, event);
+    });
   };
 
   createJobMarker(user, userIcon) {
     const job = L.marker([parseFloat(user.job_coords_y), parseFloat(user.job_coords_x)],
     {icon: userIcon}).addTo(this.map);
     job.id = user.id;
-    job.category = 'job';
+    job.category = 'work';
     job.bindPopup(`<b>${user.name}</b><br>works here.`);
-  };
-
-  iconSubscribe(icon) {
-    // sub to list-item-click. check if id matches and show popups
     PubSub.subscribe('MapView:list-item-click', (event) => {
-      if (icon.id === event.detail) {
-
-      }
+      this.markerPopup(job, event);
     });
   };
 
-};
+  markerPopup(marker, event) {
+      if (marker.id == event.detail.id && marker.category === event.detail.category) {
+        console.log('markerPopup call');
+        marker.openPopup();
+      };
+  };
 
+};
 
 module.exports = MapView;

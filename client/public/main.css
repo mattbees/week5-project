@@ -7,7 +7,7 @@ body {
 }
 
 #sidebar {
-  background-color: #CEEAED;
+  background-color: #FFFFFF;
   float: right;
   width: 20%;
   max-height: 600px;
@@ -19,9 +19,16 @@ body {
   border: 1px solid;
   border-radius: 4px;
   margin-bottom: 3px;
+  max-width: 100%;
+}
+
+.card h3:hover {
+  color: #BF2634;
+  transition: color 0.8s;
 }
 
 .card h3, p, li {
+  color: #53596C;
   margin: 3px 5px 3px 5px;
 }
 
