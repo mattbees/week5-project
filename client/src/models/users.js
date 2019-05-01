@@ -24,11 +24,11 @@ class Users {
     });
   };
 
-  // TODO: Still need to change coords into format needed for map
   // TODO: Error message for no entry to address field.
   postUser(profile) {
     const user = {};
     user.name = profile.name;
+    user.image_src = `./public/images/${profile.image_src}`;
     // user.current_job = profile.current_job;
     const provider = new OpenStreetMapProvider();
     provider.search({ query: profile.home_location })

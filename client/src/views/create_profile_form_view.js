@@ -21,7 +21,6 @@ class CreateProfileFormView {
         const filename = document.getElementById('img-input').files[0];
         profile.image_src = filename;
         const users = new Users();
-        console.dir(profile);
         users.postUser(profile);
       });
     });
