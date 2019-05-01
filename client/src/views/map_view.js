@@ -46,12 +46,8 @@ class MapView {
       } else {
         userIcon = L.icon( { iconUrl: './images/teacher-vector.png', iconSize: [40, 40] });
       };
-      const home = L.marker([parseFloat(user.home_coords_y), parseFloat(user.home_coords_x)],
-      {icon: userIcon}).addTo(this.map);
-      home.bindPopup(`<b>${user.name}</b><br>lives here.`);
-      const job = L.marker([parseFloat(user.job_coords_y), parseFloat(user.job_coords_x)],
-      {icon: userIcon}).addTo(this.map);
-      job.bindPopup(`<b>${user.name}</b><br>works here.`);
+      this.createHomeMarker(user, userIcon);
+      this.createJobMarker(user, userIcon);
     });
   };
 
@@ -79,17 +75,36 @@ class MapView {
 
   listUsers(users) {
     // create ul. loop through the users and create an li for each one. append to sidebar.
+    console.dir(users);
     const list = document.createElement('ul');
     users.forEach((user) => {
       const item = document.createElement('li');
       item.textContent = user.name;
       item.addEventListener('click', (event) => {
-        console.log('ITEM CLICK');
+        PubSub.publish('MapView:list-item-click', user.id);
+        console.dir(user.id);
       });
       list.appendChild(item);
     });
     return list;
   };
+
+  createHomeMarker(user, userIcon) {
+    const home = L.marker([parseFloat(user.home_coords_y), parseFloat(user.home_coords_x)],
+    {icon: userIcon}).addTo(this.map);
+    home.id = user.id;
+    home.category = 'home';
+    home.bindPopup(`<b>${user.name}</b><br>lives here.`);
+  };
+
+  createJobMarker(user, userIcon) {
+    const job = L.marker([parseFloat(user.job_coords_y), parseFloat(user.job_coords_x)],
+    {icon: userIcon}).addTo(this.map);
+    job.id = user.id;
+    job.category = 'job';
+    job.bindPopup(`<b>${user.name}</b><br>works here.`);
+  };
+
 
 };
 
