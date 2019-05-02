@@ -3,13 +3,15 @@ const { OpenStreetMapProvider } = require("leaflet-geosearch");
 
 
 const Users = require('./models/users');
+const Addresses = require('./models/addresses');
 const WelcomeView = require('./views/welcome_view');
 const WelcomeOptionsView = require('./views/welcome_options_view');
 const NumUsersView = require('./views/num_users_view');
 const CreateProfileIntroView = require('./views/create_profile_intro_view');
 const CreateProfileFormView = require('./views/create_profile_form_view');
 const MapView = require('./views/map_view');
-const Addresses = require('./models/addresses');
+const MapIntroView = require('./views/map_intro_view');
+
 
 document.addEventListener('DOMContentLoaded', (event) => {
   console.log('JavaScript loaded');
@@ -49,6 +51,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   // Create map view
   const mapView = new MapView(div2);
   mapView.bindEvents();
+  const mapIntroView = new MapIntroView(div1);
+  mapIntroView.bindEvents();
 
   const addresses = new Addresses();
   addresses.bindEvents();

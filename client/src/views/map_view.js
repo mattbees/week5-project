@@ -58,6 +58,7 @@ class MapView {
   }
 
   addJobMarkers(jobs) {
+    let tracker = 0;
     for (let i=0; i<5; i++) {
       let icon = null;
       if (jobs[i].image_src != null) {
@@ -66,8 +67,9 @@ class MapView {
         icon = L.icon( { iconUrl: './images/general.png', iconSize: [40, 40] });
       };
       this.createJobMarker(jobs[i], icon);
+      tracker = i;
     };
-    PubSub.publish('MapView:markers-added', )
+    PubSub.publish('MapView:markers-added', tracker);
   };
 
   // addJobMarkers(jobs) {
