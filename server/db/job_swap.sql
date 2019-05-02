@@ -60,6 +60,6 @@ VALUES ('Staff Nurse', '4 Nether Liberton Ln, Edinburgh EH16 5TY', -3.1664743, 5
 INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
 VALUES ('Swimming Instructor', '22 Gracemount Dr, Edinburgh EH16 6RN', -3.157924, 55.9063027, './images/sports.png');
 INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
-VALUES ('Pupil Support Assistant', '181 Newhaven Rd, Edinburgh EH6 4QA', -3.1856901, 55.9696245, './images/sports.png');
+VALUES ('Pupil Support Assistant', '181 Newhaven Rd, Edinburgh EH6 4QA', -3.1856901, 55.9696245, './images/teaching.png');
 INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
 VALUES ('Bus Driver', '38 Seafield Rd E, Edinburgh EH15 1ED', -3.1268338, 55.9611762, './images/transport.png');
