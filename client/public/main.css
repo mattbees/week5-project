@@ -2,6 +2,10 @@ body {
   font-family: arial;
 }
 
+#div1 {
+  text-align: center;
+}
+
 #div2 {
   height: 600px;
   text-align: center;
@@ -27,6 +31,22 @@ body {
   color: #53596C;
   margin: 3px 5px 3px 5px;
 }
+
+.input-flex-container {
+  width: 75%;
+  margin: auto;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-flex-item {
+  height: auto;
+  max-width: 100%;
+
+}
+
 
 .flex-container {
   background-color: #FFFFFF;

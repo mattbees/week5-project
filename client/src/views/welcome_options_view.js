@@ -3,23 +3,27 @@ const PubSub = require('../helpers/pub_sub');
 class WelcomeOptionsView {
   constructor(element) {
     this.element = element;
-    // this.data = null;
   };
 
   bindEvents() {
     this.clearText();
     const inputForm = this.renderInputForm();
     this.element.appendChild(inputForm);
-    // PubSub.subscribe('Users:users-data-loaded', (event) => {
-    //   this.data = event.detail; // UNNECESSARY?
-    // });
   };
 
   clearText() {
     this.element.innerHTML = '';
   };
 
+  createWrapperDiv() {
+    const wrapperDiv = document.createElement('div');
+    wrapperDiv.classList.add('input-flex-container');
+    return wrapperDiv;
+  };
+
   renderInputForm() {
+    const formDiv = document.createElement('div');
+    formDiv.classList.add('ui-input');
     const form = document.createElement('form');
     form.classList.add('address-form');
     const label = this.createLabel();
@@ -28,7 +32,10 @@ class WelcomeOptionsView {
     form.appendChild(label);
     form.appendChild(input);
     form.appendChild(button);
-    return form;
+    formDiv.appendChild(form);
+    const wrapper = this.createWrapperDiv();
+    wrapper.appendChild(formDiv);
+    return wrapper;
   };
 
   createInput() {

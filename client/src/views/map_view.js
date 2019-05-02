@@ -97,10 +97,10 @@ class MapView {
     console.log('DISTANCE', distance);
     if (kms < 3) {
       this.zoom = 13;
-    } else if (kms >= 3 && kms < 6) {
+    } else if (kms >= 3 && kms < 9) {
       this.zoom = 12;
-    } else if (kms >= 6 && kms < 10) {
-      this.zoom = 11;
+    } else if (kms >= 9) {
+      this.zoom = 12;
     };
     this.reloadMap(this.coords)
   };

@@ -5,8 +5,7 @@ class WelcomeView {
 
   bindEvents() {
     this.clearText();
-    const welcome = this.renderWelcome();
-    this.element.appendChild(welcome);
+    this.renderWelcome();
   };
 
   clearText() {
@@ -14,9 +13,13 @@ class WelcomeView {
   };
 
   renderWelcome() {
+    const pageTitle = document.createElement('h1');
+    pageTitle.textContent = 'Geo Job Search';
+    const tagLine = document.createElement('h2');
+    tagLine.textContent = 'Ditch the commute! Enter your address to find jobs near you.';
     const welcomeText = document.createElement('p');
-    welcomeText.textContent = 'Why commute to work when there are similar jobs closer to home? The Job Swap Shop connects you with people you could swap jobs with.';
-    return welcomeText;
+    this.element.appendChild(pageTitle);
+    this.element.appendChild(tagLine);
   };
 
 };
