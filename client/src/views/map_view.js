@@ -15,7 +15,6 @@ class MapView {
     PubSub.subscribe('Jobs:jobs-data-loaded', (event) => {
       this.data = event.detail;
     });
-    // NEW CODE
     PubSub.subscribe('Addresses:coords-ready', (event) => {
       this.coords = event.detail;
       this.centre = [this.coords.y, this.coords.x];
@@ -78,13 +77,11 @@ class MapView {
         // Also create a sidebar card for each job
         const card = this.displayJob(jobs[i]);
         const sidebar = document.querySelector('#sidebar');
-        console.log('ABOUT TO APPEND CARD');
         sidebar.appendChild(card);
         tracker = i;
         jobs[i].tracker = i; // adding tracker property to pass this value to map-intro-view
         // find distance of last element to set map zoom:
         if ((i === (trackerPlus-1)) || (i === jobs.length-1)) {
-            console.log(jobs[i]);
             this.setMapZoom(jobs[i].distance);
         };
       };
@@ -94,7 +91,6 @@ class MapView {
 
   setMapZoom(distance) {
     const kms = distance;
-    console.log('DISTANCE', distance);
     if (kms < 3) {
       this.zoom = 13;
     } else if (kms >= 3 && kms < 9) {
@@ -108,7 +104,6 @@ class MapView {
   reloadMap(coords) {
     const x = coords.x;
     const y = coords.y;
-    console.log('HERE');
     this.map.setView([y, x], this.zoom);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -176,29 +171,6 @@ class MapView {
       card.appendChild(title);
     return card;
   };
-
-
-
-// OLD:
-
-  // createHomeMarker(job, jobIcon) {
-  //   const home = L.marker([parseFloat(job.home_coords_y), parseFloat(job.home_coords_x)],
-  //   {icon: jobIcon}).addTo(this.map);
-  //   home.id = job.id;
-  //   home.category = 'home';
-  //   home.bindPopup(`<b>${job.name}</b><br>lives here.`);
-  // };
-  //
-  // createJobMarker(job, jobIcon) {
-  //   const job = L.marker([parseFloat(job.job_coords_y), parseFloat(job.job_coords_x)],
-  //   {icon: jobIcon}).addTo(this.map);
-  //   job.id = job.id;
-  //   job.category = 'work';
-  //   job.bindPopup(`<b>${job.name}</b><br>works here.`);
-  //   PubSub.subscribe('MapView:list-item-click', (event) => {
-  //     this.markerPopup(job, event);
-  //   });
-  // };
 
   markerPopup(marker, event) {
     console.log('POPUP CALL - marker', marker.id);

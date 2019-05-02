@@ -6,6 +6,13 @@ class WelcomeOptionsView {
   };
 
   bindEvents() {
+    this.renderContent();
+    PubSub.subscribe('CreateProfileView:job-submitted', (event) => {
+      this.renderContent();
+    });
+  };
+
+  renderContent() {
     this.clearText();
     const inputForm = this.renderInputForm();
     this.element.appendChild(inputForm);
@@ -37,12 +44,14 @@ class WelcomeOptionsView {
   };
 
   createInput() {
+    const inputDiv = document.createElement('div');
+    inputDiv.classList.add('field')
     const input = document.createElement('input');
     input.type = 'text';
     input.id = 'address-input'
     input.placeholder = 'Your address here';
-    // input.classList.add('address-input');
-    return input;
+    inputDiv.appendChild(input);
+    return inputDiv;
   };
 
   createButton() {
@@ -53,47 +62,11 @@ class WelcomeOptionsView {
     button.addEventListener('click', (event) => {
       event.preventDefault();
       const address = event.target.form[0].value;
-      console.dir(address);
       PubSub.publish('WelcomeOptionsView:address-button-click', address);
     });
     return button;
   }
 
-
-
-
-
-
-
-
-
-// OLD CODE:
-  // renderButtonsDiv() {
-  //   const buttonsDiv = document.createElement('div');
-  //   const profile = this.createProfileButton();
-  //   buttonsDiv.appendChild(profile);
-  //   const view = this.createViewButton();
-  //   buttonsDiv.appendChild(view);
-  //   return buttonsDiv;
-  // };
-  //
-  // createProfileButton() {
-  //   const createButton = document.createElement('button');
-  //   createButton.textContent = 'Create a profile';
-  //   createButton.addEventListener('click', (event) => {
-  //     PubSub.publish('WelcomeOptionsView:create-profile-click');
-  //   });
-  //   return createButton;
-  // };
-  //
-  // createViewButton() {
-  //   const createView = document.createElement('button');
-  //   createView.textContent = 'View current jobs';
-  //   createView.addEventListener('click', (event) => {
-  //     PubSub.publish('WelcomeOptionsView:view-jobs-click', this.data);
-  //   });
-  //   return createView;
-  // };
 
 };
 

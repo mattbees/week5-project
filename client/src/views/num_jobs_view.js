@@ -9,15 +9,9 @@ class NumJobsView {
   bindEvents() {
     PubSub.subscribe('Jobs:jobs-data-loaded', (events) => {
       this.data = event.detail;
+      this.clearText();
       const numJobs = this.createNumJobs();
       this.element.appendChild(numJobs);
-      // CODE THIS MESSAGE (PUBLISH)
-      PubSub.subscribe('Jobs:jobs-data-reloaded', (events) => {
-        this.clearText();
-        this.data = event.detail;
-        const numJobs = this.createNumJobs();
-        this.element.appendChild(numJobs);
-      });
     });
   };
 
@@ -35,7 +29,6 @@ class NumJobsView {
   checkNumJobs() {
     return this.data.length;
   };
-
 
 };
 

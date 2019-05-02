@@ -19,53 +19,59 @@ class Jobs {
     });
   };
 
-
-  // getData(load) {
-  //   const url = `http://localhost:3000/job_swap`;
-  //   const request = new RequestHelper(url);
-  //   request.get()
-  //     .then((data) => {
-  //       this.data = data;
-  //       if (load == 'firstLoad') {
-  //         PubSub.publish('Jobs:jobs-data-loaded', this.data);
-  //       } else if (load == 'secondLoad') {
-  //         PubSub.publish('Jobs:jobs-data-reloaded', this.data);
-  //       }
-  //   })
-  //     .catch((message) => {
-  //       console.error(message);
-  //   });
-  // };
-
-  // TODO: Error message for no entry to address field.
-  postUser(profile) {
-    const user = {};
-    user.name = profile.name;
-    console.log(profile.image_src.name);
-    user.image_src = `./images/${profile.image_src.name}`;
-    // user.current_job = profile.current_job;
+  postJob(profile) {
+    const job = {};
+    job.title = profile.title;
+    job.address = profile.address;
+    job.image_src = `./images/general.png`;
     const provider = new OpenStreetMapProvider();
-    provider.search({ query: profile.home_location })
-    .then( (results_home) => {
-      user.home_coords_x = results_home[0].x;
-      user.home_coords_y = results_home[0].y;
-      // Nesting to retain scope
-      provider.search({ query: profile.job_location })
-      .then( (results_job) => {
-        user.job_coords_x = results_job[0].x;
-        user.job_coords_y = results_job[0].y;
-        // POST request
-        const url = `http://localhost:3000/job_swap`;
-        const request = new RequestHelper(url);
-        request.post(user)
-        // GET request
-        .then((users) => {
-          this.getData('secondLoad');
-        })
-        .catch(console.error);
-      }); // END .then
+    provider.search({ query: profile.address })
+    .then( (results) => {
+      job.coords_x = results[0].x;
+      job.coords_y = results[0].y;
+      // POST request
+      const url = `http://localhost:3000/job_swap`;
+      const request = new RequestHelper(url);
+      request.post(job)
+      // GET request
+      .then((jobs) => {
+        console.log('Getting jobs');
+        this.getData();
+      })
+      .catch(console.error);
     }); // END .then
   };
+
+
+  // // DEMO EXAMPLE
+  // postUser(profile) {
+  //   const user = {};
+  //   user.name = profile.name;
+  //   console.log(profile.image_src.name);
+  //   user.image_src = `./images/${profile.image_src.name}`;
+  //   // user.current_job = profile.current_job;
+  //   const provider = new OpenStreetMapProvider();
+  //   provider.search({ query: profile.home_location })
+  //   .then( (results_home) => {
+  //     user.home_coords_x = results_home[0].x;
+  //     user.home_coords_y = results_home[0].y;
+  //     // Nesting to retain scope
+  //     provider.search({ query: profile.job_location })
+  //     .then( (results_job) => {
+  //       user.job_coords_x = results_job[0].x;
+  //       user.job_coords_y = results_job[0].y;
+  //       // POST request
+  //       const url = `http://localhost:3000/job_swap`;
+  //       const request = new RequestHelper(url);
+  //       request.post(user)
+  //       // GET request
+  //       .then((users) => {
+  //         this.getData('secondLoad');
+  //       })
+  //       .catch(console.error);
+  //     }); // END .then
+  //   }); // END .then
+  // };
 
 };
 

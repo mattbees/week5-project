@@ -37,6 +37,10 @@ body {
 
 }
 
+.my-form-input {
+  max-width: 300px;
+}
+
 .input-flex-container {
   width: 75%;
   margin: auto;

@@ -7,10 +7,10 @@ const Addresses = require('./models/addresses');
 const WelcomeView = require('./views/welcome_view');
 const WelcomeOptionsView = require('./views/welcome_options_view');
 const NumJobsView = require('./views/num_jobs_view');
-const CreateProfileIntroView = require('./views/create_profile_intro_view');
 const CreateProfileFormView = require('./views/create_profile_form_view');
 const MapView = require('./views/map_view');
 const MapIntroView = require('./views/map_intro_view');
+const CreateProfileHeader = require('./views/create_profile_header');
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -42,23 +42,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const numJobsView = new NumJobsView(div3);
   numJobsView.bindEvents();
 
-  // Create profile form page:
-  const createProfileIntroView = new CreateProfileIntroView(div1);
-  createProfileIntroView.bindEvents();
-  const createProfileFormView = new CreateProfileFormView(div2);
-  createProfileFormView.bindEvents();
-
   // Create map view
   const mapView = new MapView(div2);
   mapView.bindEvents();
   const mapIntroView = new MapIntroView(div1);
   mapIntroView.bindEvents();
 
+  // Create profile form page:
+  const createProfileHeader = new CreateProfileHeader(div1);
+  createProfileHeader.bindEvents();
+  const createProfileFormView = new CreateProfileFormView(div2);
+  createProfileFormView.bindEvents();
+
+
   const addresses = new Addresses();
   addresses.bindEvents();
 
   const jobs = new Jobs();
-  jobs.getData('firstLoad');
+  jobs.getData();
 
 });
 

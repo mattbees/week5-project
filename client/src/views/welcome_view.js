@@ -1,9 +1,19 @@
+const PubSub = require('../helpers/pub_sub');
+
 class WelcomeView {
   constructor(element) {
       this.element = element;
   };
 
   bindEvents() {
+    this.renderContent();
+    PubSub.subscribe('CreateProfileView:job-submitted', (event) => {
+      this.renderContent();
+      this.confirmJobPost();
+    });
+  };
+
+  renderContent() {
     this.clearText();
     this.renderWelcome();
   };
@@ -22,6 +32,12 @@ class WelcomeView {
     this.element.appendChild(tagLine);
   };
 
-};
 
+  confirmJobPost() {
+    const confirm = document.createElement('h1');
+    confirm.textContent = 'Job posted - thank you!';
+    this.element.appendChild(confirm);
+  };
+
+};
 module.exports = WelcomeView;

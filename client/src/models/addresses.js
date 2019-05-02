@@ -21,6 +21,8 @@ class Addresses {
     });
   };
 
+
+
 };
 
 module.exports = Addresses;
