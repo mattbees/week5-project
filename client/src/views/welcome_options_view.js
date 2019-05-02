@@ -65,8 +65,7 @@ class WelcomeOptionsView {
       PubSub.publish('WelcomeOptionsView:address-button-click', address);
     });
     return button;
-  }
-
+  };
 
 };
 

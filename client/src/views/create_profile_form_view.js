@@ -1,3 +1,4 @@
+
 const PubSub = require('../helpers/pub_sub');
 const Jobs = require('../models/jobs');
 
@@ -61,21 +62,6 @@ class CreateProfileFormView {
     return titleDiv;
   };
 
-
-  // createImgInput() {
-  //   const imgDiv = document.createElement('div');
-  //   const imgInput = document.createElement('select');
-  //   imgInput.type = 'file';
-  //   imgInput.id = 'img-input';
-  //   imgInput.accept = 'image/*';
-  //   const label = document.createElement('label');
-  //   label.for = 'img-input';
-  //   label.textContent = 'Upload a photo';
-  //   imgDiv.appendChild(label);
-  //   imgDiv.appendChild(imgInput);
-  //   return imgDiv;
-  // };
-
   createAddressInput() {
     const addressDiv = document.createElement('div');
     const label2 = document.createElement('label');
@@ -101,5 +87,19 @@ class CreateProfileFormView {
   };
 
 };
+
+// createImgInput() {
+  //   const imgDiv = document.createElement('div');
+  //   const imgInput = document.createElement('select');
+  //   imgInput.type = 'file';
+  //   imgInput.id = 'img-input';
+  //   imgInput.accept = 'image/*';
+  //   const label = document.createElement('label');
+  //   label.for = 'img-input';
+  //   label.textContent = 'Upload a photo';
+  //   imgDiv.appendChild(label);
+  //   imgDiv.appendChild(imgInput);
+  //   return imgDiv;
+  // };
 
 module.exports = CreateProfileFormView;

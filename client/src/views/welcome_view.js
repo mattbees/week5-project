@@ -7,7 +7,7 @@ class WelcomeView {
 
   bindEvents() {
     this.renderContent();
-    PubSub.subscribe('CreateProfileView:job-submitted', (event) => {
+    PubSub.subscribe('CreateProfileView:job-submitted', () => {
       this.renderContent();
       this.confirmJobPost();
     });

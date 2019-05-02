@@ -28,7 +28,6 @@ class MapView {
       const sortedJobs = this.sortByDistance();
       this.addJobMarkers(sortedJobs, 0);
     });
-
     PubSub.subscribe('MapIntroView:view-more-click', (event) => {
       const startValue = event.detail;
       const sortedJobs = this.sortByDistance();
@@ -124,6 +123,8 @@ class MapView {
 
 
   // KEEPING THIS CODE IN map_view.js AS THESE CALCS RELY ON HAVING A MAP OBJECT
+  // UNABLE TO RUN TESTS ON THESE FUNCTIONS AS THEY FALL DOWN WITHOUT A MAP OBJECT
+  // UNABLE TO INSTANTIATE MAP IN TESTS AS IT REQUIRES A DIV
   checkDistance(job) {
     const point1 = L.latLng(job.coords_y, job.coords_x);
     const point2 = L.latLng(this.centre[0], this.centre[1]);
