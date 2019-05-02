@@ -5,6 +5,7 @@ class MapView {
   constructor(element) {
     this.element = element;
     this.data = null;
+    this.sortedData = null;
     this.map = null;
     this.centre = [];
   };
@@ -26,7 +27,13 @@ class MapView {
       this.addMap(coords);
       this.addCentreMarker(coords);
       const sortedJobs = this.sortByDistance();
-      this.addJobMarkers(sortedJobs);
+      this.addJobMarkers(sortedJobs, 0);
+    });
+
+    PubSub.subscribe('MapIntroView:view-more-click', (event) => {
+      const startValue = event.detail;
+      const sortedJobs = this.sortByDistance();
+      this.addJobMarkers(sortedJobs, startValue);
     });
   };
 
@@ -57,20 +64,26 @@ class MapView {
     centreMarker.bindPopup(`<b>You live here.</b>`);
   }
 
-  addJobMarkers(jobs) {
-    let tracker = 0;
-    for (let i=0; i<5; i++) {
+  addJobMarkers(jobs, startValue) {
+    let tracker = startValue;
+    let trackerPlus = tracker+5;
+    for (let i=tracker; i<trackerPlus; i++) {
       let icon = null;
-      if (jobs[i].image_src != null) {
-        icon = L.icon( { iconUrl: jobs[i].image_src, iconSize: [40, 40] });
-      } else {
-        icon = L.icon( { iconUrl: './images/general.png', iconSize: [40, 40] });
+      if (jobs[i]) {
+        if (jobs[i].image_src != null) {
+          icon = L.icon( { iconUrl: jobs[i].image_src, iconSize: [40, 40] });
+        } else {
+          icon = L.icon( { iconUrl: './images/general.png', iconSize: [40, 40] });
+        };
+        this.createJobMarker(jobs[i], icon);
+        tracker = i;
+        jobs[i].tracker = i; // adding tracker property to pass this value to map-intro-view
       };
-      this.createJobMarker(jobs[i], icon);
-      tracker = i;
     };
-    PubSub.publish('MapView:markers-added', jobs[tracker].distance);
+    PubSub.publish('MapView:markers-added', jobs[tracker]);
   };
+
+
 
   // addJobMarkers(jobs) {
   //   jobs.forEach((job) => {
