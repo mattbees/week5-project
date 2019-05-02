@@ -57,7 +57,8 @@ class MapView {
   };
 
   addCentreMarker(coords) {
-    const centreMarker = L.marker([parseFloat(coords.y), parseFloat(coords.x)]).addTo(this.map);
+    const icon = L.icon({ iconUrl: './images/home-icon.png', iconSize: [50, 50] });
+    const centreMarker = L.marker([parseFloat(coords.y), parseFloat(coords.x)], {icon: icon}).addTo(this.map);
     centreMarker.id = 'centre-marker';
     centreMarker.bindPopup(`<b>You live here.</b>`);
   }
@@ -69,9 +70,9 @@ class MapView {
       let icon = null;
       if (jobs[i]) {
         if (jobs[i].image_src != null) {
-          icon = L.icon( { iconUrl: jobs[i].image_src, iconSize: [40, 40] });
+          icon = L.icon( { iconUrl: jobs[i].image_src, iconSize: [50, 50] });
         } else {
-          icon = L.icon( { iconUrl: './images/general.png', iconSize: [40, 40] });
+          icon = L.icon( { iconUrl: './images/general.png', iconSize: [50, 50] });
         };
         this.createJobMarker(jobs[i], icon);
         // Also create a sidebar card for each job
@@ -147,12 +148,13 @@ class MapView {
   createSidebar() {
     const sideDiv = document.createElement('div');
     sideDiv.id = 'sidebar';
+    sideDiv.classList.add('flex-container');
     return sideDiv;
   };
 
   displayJob(job) {
       const card = document.createElement('div');
-      card.classList.add('card');
+      card.classList.add('flex-item');
       card.id = job.id;
       const title = document.createElement('h3');
       title.textContent = job.title;

@@ -13,19 +13,9 @@ body {
 }
 
 #sidebar {
-  background-color: #FFFFFF;
-  float: right;
-  width: 20%;
-  max-height: 600px;
-  padding: 5px;
-  overflow-y: scroll;
 }
 
 .card {
-  border: 1px solid;
-  border-radius: 4px;
-  margin-bottom: 3px;
-  max-width: 100%;
 }
 
 .card h3:hover {
@@ -38,6 +28,27 @@ body {
   margin: 3px 5px 3px 5px;
 }
 
-.hidden {
-  visibility: hidden;
+.flex-container {
+  background-color: #FFFFFF;
+  float: right;
+  width: 20%;
+  max-height: 600px;
+  padding: 5px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
+
+.flex-item {
+  height: auto;
+  border: 1px solid;
+  border-radius: 10px;
+  margin-bottom: 3px;
+  max-width: 100%;
+}
+
+.flex-item p {
+  margin-bottom: 10px;
+};

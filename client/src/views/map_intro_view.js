@@ -10,7 +10,8 @@ class MapIntroView {
   bindEvents() {
     PubSub.subscribe('MapView:markers-added', (event) => {
       this.startValue = event.detail.tracker+1; // set element to start next loop at
-      this.distance = Math.ceil((event.detail.distance/1000));
+      this.distance = Math.ceil((event.detail.distance));
+      console.log('HERE', this.distance);
       this.clearText();
       this.renderText();
     });
