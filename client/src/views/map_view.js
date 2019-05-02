@@ -25,8 +25,8 @@ class MapView {
       this.element.appendChild(mapDiv);
       this.addMap(coords);
       this.addCentreMarker(coords);
-      this.addJobMarkers(this.data);
-      this.sortByDistance();
+      const sortedJobs = this.sortByDistance();
+      this.addJobMarkers(sortedJobs);
     });
   };
 
@@ -58,16 +58,29 @@ class MapView {
   }
 
   addJobMarkers(jobs) {
-    jobs.forEach((job) => {
+    for (let i=0; i<5; i++) {
       let icon = null;
-      if (job.image_src != null) {
-        icon = L.icon( { iconUrl: job.image_src, iconSize: [40, 40] });
+      if (jobs[i].image_src != null) {
+        icon = L.icon( { iconUrl: jobs[i].image_src, iconSize: [40, 40] });
       } else {
         icon = L.icon( { iconUrl: './images/general.png', iconSize: [40, 40] });
       };
-      this.createJobMarker(job, icon);
-    });
+      this.createJobMarker(jobs[i], icon);
+    };
+    PubSub.publish('MapView:markers-added', )
   };
+
+  // addJobMarkers(jobs) {
+  //   jobs.forEach((job) => {
+  //     let icon = null;
+  //     if (job.image_src != null) {
+  //       icon = L.icon( { iconUrl: job.image_src, iconSize: [40, 40] });
+  //     } else {
+  //       icon = L.icon( { iconUrl: './images/general.png', iconSize: [40, 40] });
+  //     };
+  //     this.createJobMarker(job, icon);
+  //   });
+  // };
 
   createJobMarker(job, icon) {
     const marker = L.marker([parseFloat(job.coords_y), parseFloat(job.coords_x)],
@@ -93,7 +106,7 @@ class MapView {
       job.distance = this.checkDistance(job);
     });
     sortedJobs.sort(function(a, b) { return a.distance - b.distance} );
-    console.dir(sortedJobs);
+    return sortedJobs;
   };
 
 
