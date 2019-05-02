@@ -6,7 +6,7 @@ const Jobs = require('./models/jobs');
 const Addresses = require('./models/addresses');
 const WelcomeView = require('./views/welcome_view');
 const WelcomeOptionsView = require('./views/welcome_options_view');
-const NumUsersView = require('./views/num_users_view');
+const NumJobsView = require('./views/num_jobs_view');
 const CreateProfileIntroView = require('./views/create_profile_intro_view');
 const CreateProfileFormView = require('./views/create_profile_form_view');
 const MapView = require('./views/map_view');
@@ -39,8 +39,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   welcomeView.bindEvents();
   const welcomeOptionsView = new WelcomeOptionsView(div2);
   welcomeOptionsView.bindEvents();
-  const numUsersView = new NumUsersView(div3);
-  numUsersView.bindEvents();
+  const numJobsView = new NumJobsView(div3);
+  numJobsView.bindEvents();
 
   // Create profile form page:
   const createProfileIntroView = new CreateProfileIntroView(div1);

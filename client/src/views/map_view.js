@@ -6,8 +6,10 @@ class MapView {
     this.element = element;
     this.data = null;
     this.sortedData = null;
+    this.coords = null;
     this.map = null;
     this.centre = [];
+    this.zoom = 13; // This zoom level should work for most initial scenarios
   };
 
   bindEvents() {
@@ -16,16 +18,16 @@ class MapView {
     });
     // NEW CODE
     PubSub.subscribe('Addresses:coords-ready', (event) => {
-      const coords = event.detail;
-      this.centre = [coords.y, coords.x];
+      this.coords = event.detail;
+      this.centre = [this.coords.y, this.coords.x];
       // populate map with db data
       this.clearText();
       const sidebar = this.createSidebar(/*event.detail*/);
       this.element.appendChild(sidebar);
       const mapDiv = this.createMap();
       this.element.appendChild(mapDiv);
-      this.addMap(coords);
-      this.addCentreMarker(coords);
+      this.addMap(this.coords);
+      this.addCentreMarker(this.coords);
       const sortedJobs = this.sortByDistance();
       this.addJobMarkers(sortedJobs, 0);
     });
@@ -49,10 +51,8 @@ class MapView {
 
   addMap(coords) {
     const x = coords.x;
-    console.dir(x);
     const y = coords.y;
-    console.dir(y);
-    this.map = L.map('map').setView([y, x], 12);
+    this.map = L.map('map').setView([y, x], this.zoom);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
@@ -78,11 +78,37 @@ class MapView {
         this.createJobMarker(jobs[i], icon);
         tracker = i;
         jobs[i].tracker = i; // adding tracker property to pass this value to map-intro-view
+        if (i === (trackerPlus-1)) { // find distance of last element to set map zoom
+          this.setMapZoom(jobs[i].distance);
+        };
       };
     };
+    // call function to set map zoom
     PubSub.publish('MapView:markers-added', jobs[tracker]);
   };
 
+  setMapZoom(distance) {
+    const kms = distance/1000;
+    console.log('DISTANCE', distance);
+    if (kms < 3) {
+      this.zoom = 13;
+    } else if (kms >= 3 && kms < 6) {
+      this.zoom = 12;
+    } else if (kms >= 6 && kms < 10) {
+      this.zoom = 11;
+    };
+    this.reloadMap(this.coords)
+  };
+
+  reloadMap(coords) {
+    const x = coords.x;
+    const y = coords.y;
+    console.log('HERE');
+    this.map.setView([y, x], this.zoom);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map);
+  };
 
 
   // addJobMarkers(jobs) {
