@@ -69,7 +69,7 @@ class MapView {
       this.createJobMarker(jobs[i], icon);
       tracker = i;
     };
-    PubSub.publish('MapView:markers-added', tracker);
+    PubSub.publish('MapView:markers-added', jobs[tracker].distance);
   };
 
   // addJobMarkers(jobs) {
