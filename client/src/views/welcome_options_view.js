@@ -26,10 +26,8 @@ class WelcomeOptionsView {
     formDiv.classList.add('ui-input');
     const form = document.createElement('form');
     form.classList.add('address-form');
-    const label = this.createLabel();
     const input = this.createInput();
     const button = this.createButton();
-    form.appendChild(label);
     form.appendChild(input);
     form.appendChild(button);
     formDiv.appendChild(form);
@@ -45,14 +43,6 @@ class WelcomeOptionsView {
     input.placeholder = 'Your address here';
     // input.classList.add('address-input');
     return input;
-  };
-
-  // label click does not highlight input
-  createLabel() {
-    const label = document.createElement('label');
-    label.for = 'address-input';
-    label.textContent = 'Enter your address: ';
-    return label;
   };
 
   createButton() {

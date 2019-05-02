@@ -2,8 +2,13 @@ body {
   font-family: arial;
 }
 
+
 #div1 {
   text-align: center;
+}
+
+#div1 h1 {
+  font-size: 2em;
 }
 
 #div2 {
@@ -11,25 +16,25 @@ body {
   text-align: center;
 }
 
+#div3 {
+  text-align: center;
+}
+
+#div3 h3 {
+  margin: 20px 10px 10px 20px;
+}
+
 #map {
   height: 600px;
   width: 78%;
 }
 
-#sidebar {
-}
+#address-input {
+  height: auto;
+  max-width: 100%;
+  padding: 6px 6px;
+  font-size: 1.5em;
 
-.card {
-}
-
-.card h3:hover {
-  color: #BF2634;
-  transition: color 0.8s;
-}
-
-.card h3, p, li {
-  color: #53596C;
-  margin: 3px 5px 3px 5px;
 }
 
 .input-flex-container {
@@ -39,12 +44,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.input-flex-item {
-  height: auto;
-  max-width: 100%;
-
 }
 
 
@@ -57,7 +56,6 @@ body {
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   justify-content: space-between;
 }
 

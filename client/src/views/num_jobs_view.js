@@ -26,7 +26,7 @@ class NumJobsView {
   };
 
   createNumJobs() {
-    const numJobsText = document.createElement('h3');
+    const numJobsText = document.createElement('h2');
     const num = this.checkNumJobs();
     numJobsText.textContent = `Number of current jobs posted: ${num}`;
     return numJobsText;

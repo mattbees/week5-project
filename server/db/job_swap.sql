@@ -63,3 +63,23 @@ INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
 VALUES ('Pupil Support Assistant', '181 Newhaven Rd, Edinburgh EH6 4QA', -3.1856901, 55.9696245, './images/teaching.png');
 INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
 VALUES ('Bus Driver', '38 Seafield Rd E, Edinburgh EH15 1ED', -3.1268338, 55.9611762, './images/transport.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Shop Manager', '17 Glasgow Rd, Edinburgh EH12 8HW', -3.29416754, 55.94211665, './images/shop.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Caterer', '123 Bruntsfield Pl, Edinburgh EH10 4EQ', -3.2073575, 55.9367217, './images/catering.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Nursery Teacher', '12 Claremont Park, Edinburgh EH6 7PJ', -3.1541969, 55.9699792, './images/teaching.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Fitness Instructor', '23 Elm Row, Edinburgh EH7 4AA', -3.1830162, 55.9589898, './images/sports.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Dental Nurse', '65 W Harbour Rd, Edinburgh EH5 1PW', -3.2257291, 55.9813535, './images/medical.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Taxi Driver', '69 Lauriston Farm Rd, Edinburgh EH4 5EX', -3.2745973, 55.9697753, './images/transport.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Receptionist', '5 Murrayburn Dr, Edinburgh EH14 2SU', -3.2903722, 55.9173930, './images/admin.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Doctor', '116 St Johns Rd, Edinburgh EH12 8AX', -3.2839081, 55.9430243, './images/medical.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Accountant', '41 Howden Hall Rd, Edinburgh EH16 6PG', -3.1649763, 55.9020533, './images/finance.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Shop Assistant', '57 Bath St, Edinburgh EH15 1HE', -3.1102985, 55.9547063, './images/shop.png');
