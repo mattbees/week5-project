@@ -2,27 +2,40 @@ const PubSub = require('../helpers/pub_sub');
 const RequestHelper = require('../helpers/request_helper');
 const { OpenStreetMapProvider } = require("leaflet-geosearch");
 
-class Users {
+class Jobs {
   constructor() {
     this.data = null;
   };
 
-  getData(load) {
+  getData() {
     const url = `http://localhost:3000/job_swap`;
     const request = new RequestHelper(url);
     request.get()
       .then((data) => {
         this.data = data;
-        if (load == 'firstLoad') {
-          PubSub.publish('Users:users-data-loaded', this.data);
-        } else if (load == 'secondLoad') {
-          PubSub.publish('Users:users-data-reloaded', this.data);
-        }
-    })
-      .catch((message) => {
+        PubSub.publish('Jobs:jobs-data-loaded', this.data);
+      }).catch((message) => {
         console.error(message);
     });
   };
+
+
+  // getData(load) {
+  //   const url = `http://localhost:3000/job_swap`;
+  //   const request = new RequestHelper(url);
+  //   request.get()
+  //     .then((data) => {
+  //       this.data = data;
+  //       if (load == 'firstLoad') {
+  //         PubSub.publish('Jobs:jobs-data-loaded', this.data);
+  //       } else if (load == 'secondLoad') {
+  //         PubSub.publish('Jobs:jobs-data-reloaded', this.data);
+  //       }
+  //   })
+  //     .catch((message) => {
+  //       console.error(message);
+  //   });
+  // };
 
   // TODO: Error message for no entry to address field.
   postUser(profile) {
@@ -56,4 +69,4 @@ class Users {
 
 };
 
-module.exports = Users;
+module.exports = Jobs;

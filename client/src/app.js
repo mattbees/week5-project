@@ -2,7 +2,7 @@
 const { OpenStreetMapProvider } = require("leaflet-geosearch");
 
 
-const Users = require('./models/users');
+const Jobs = require('./models/jobs');
 const Addresses = require('./models/addresses');
 const WelcomeView = require('./views/welcome_view');
 const WelcomeOptionsView = require('./views/welcome_options_view');
@@ -57,8 +57,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const addresses = new Addresses();
   addresses.bindEvents();
 
-  const users = new Users();
-  users.getData('firstLoad');
+  const jobs = new Jobs();
+  jobs.getData('firstLoad');
 
 });
 

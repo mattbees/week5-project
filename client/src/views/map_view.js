@@ -11,7 +11,7 @@ class MapView {
   };
 
   bindEvents() {
-    PubSub.subscribe('Users:users-data-loaded', (event) => {
+    PubSub.subscribe('Jobs:jobs-data-loaded', (event) => {
       this.data = event.detail;
     });
     // NEW CODE
@@ -108,6 +108,7 @@ class MapView {
     });
   };
 
+  // KEEPING THIS CODE IN VIEW AS THESE CALCS RELY ON HAVING A MAP OBJECT
   checkDistance(job) {
     const point1 = L.latLng(job.coords_y, job.coords_x);
     const point2 = L.latLng(this.centre[0], this.centre[1]);
