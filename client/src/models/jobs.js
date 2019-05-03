@@ -35,13 +35,26 @@ class Jobs {
       request.post(job)
       // GET request
       .then((jobs) => {
-        console.log('Getting jobs');
         this.getData();
       })
       .catch(console.error);
     }); // END .then
   };
 
+  deleteJob(id) {
+    const url = `http://localhost:3000/job_swap/${id}`;
+    const request = new RequestHelper(url);
+    request.delete()
+      .then((jobs) => {
+        this.getData();
+        PubSub.publish('Jobs:job-deleted');
+      })
+      .catch(console.error);
+  };
+
+};
+
+module.exports = Jobs;
 
   // // DEMO EXAMPLE
   // postUser(profile) {
@@ -72,7 +85,3 @@ class Jobs {
   //     }); // END .then
   //   }); // END .then
   // };
-
-};
-
-module.exports = Jobs;

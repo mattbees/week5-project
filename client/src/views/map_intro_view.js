@@ -24,7 +24,7 @@ class MapIntroView {
   renderText() {
     const div = document.createElement('div');
     const text = document.createElement('h2');
-    text.textContent = `These jobs are within ${this.distance} km of where you live.`
+    text.textContent = `Jobs within ${this.distance} km of where you live.`
     div.appendChild(text);
     const button1 = this.createButton1();
     div.appendChild(button1);

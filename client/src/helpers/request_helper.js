@@ -7,7 +7,6 @@ class RequestHelper {
   get() {
     return fetch(this.url)
       .then(res => res.json())
-      console.log('fetch returned');
   }
 
   post(payload) {
@@ -17,6 +16,13 @@ class RequestHelper {
       headers: { 'Content-Type': 'application/json' }
     })
       .then((response) => response.json());
+  }
+
+  delete() {
+    return fetch(this.url, {
+      method: 'DELETE',
+    })
+    .then((response) => response.json());
   }
 
 

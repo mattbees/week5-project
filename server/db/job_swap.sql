@@ -83,3 +83,13 @@ INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
 VALUES ('Accountant', '41 Howden Hall Rd, Edinburgh EH16 6PG', -3.1649763, 55.9020533, './images/finance.png');
 INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
 VALUES ('Shop Assistant', '57 Bath St, Edinburgh EH15 1HE', -3.1102985, 55.9547063, './images/shop.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Shop Manager', '119 Niddrie Mains Rd, Edinburgh EH16 4GB', -3.1213731, 55.9341176, './images/shop.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Bar Staff', '6 Craigleith Rd, Edinburgh EH4 2DP', -3.1213731, 55.9341176, './images/catering.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Nursery Teacher', '56 Hillhouse Rd, Edinburgh EH4 5EG', -3.2589707, 55.9609566, './images/teaching.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Fitness Instructor', '10 Bridge St, Musselburgh EH21 6AG', -3.0564999, 55.9431521, './images/sports.png');
+INSERT INTO jobs (title, address, coords_x, coords_y, image_src)
+VALUES ('Medical Researcher', '75 Craigmount Brae, Edinburgh EH12 8XF', -3.2993613, 55.9519481, './images/medical.png');

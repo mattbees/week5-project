@@ -10,6 +10,9 @@ class WelcomeOptionsView {
     PubSub.subscribe('CreateProfileView:job-submitted', (event) => {
       this.renderContent();
     });
+    PubSub.subscribe('Jobs:job-deleted', (event) => {
+      this.renderContent();
+    });
   };
 
   renderContent() {
@@ -59,6 +62,7 @@ class WelcomeOptionsView {
     button.type = 'submit';
     button.id = 'address-button';
     button.textContent = 'Go!';
+    button.classList.add('ui', 'button');
     button.addEventListener('click', (event) => {
       event.preventDefault();
       const address = event.target.form[0].value;

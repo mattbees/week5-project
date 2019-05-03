@@ -17,19 +17,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   console.log('JavaScript loaded');
 
 
-  // TEST CODE FOR LAT & LONG:
-  // setup
-  const provider = new OpenStreetMapProvider();
-  const form = document.querySelector('form');
-  const input = form.querySelector('input[type="text"]');
-  form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      // search
-      const results = await provider.search({ query: input.value });
-      console.log(results); // » [{}, {}, {}, ...]
-    });
-  // END TEST CODE
-
   const div1 = document.querySelector('#div1');
   const div2 = document.querySelector('#div2');
   const div3 = document.querySelector('#div3');

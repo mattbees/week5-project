@@ -11,6 +11,11 @@ class WelcomeView {
       this.renderContent();
       this.confirmJobPost();
     });
+    PubSub.subscribe('Jobs:job-deleted', () => {
+      this.renderContent();
+      this.confirmDelete();
+    });
+
   };
 
   renderContent() {
@@ -24,6 +29,7 @@ class WelcomeView {
 
   renderWelcome() {
     const pageTitle = document.createElement('h1');
+    pageTitle.classList.add('ui', 'huge', 'header');
     pageTitle.textContent = 'Geo Job Search';
     const tagLine = document.createElement('h2');
     tagLine.textContent = 'Ditch the commute! Enter your address to find jobs near you.';
@@ -32,12 +38,18 @@ class WelcomeView {
     this.element.appendChild(tagLine);
   };
 
-
   confirmJobPost() {
     const confirm = document.createElement('h1');
     confirm.textContent = 'Job posted - thank you!';
     this.element.appendChild(confirm);
   };
+
+  confirmDelete() {
+    const confirm = document.createElement('h1');
+    confirm.textContent = 'The job has been deleted.';
+    this.element.appendChild(confirm);
+  };
+
 
 };
 module.exports = WelcomeView;

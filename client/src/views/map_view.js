@@ -1,5 +1,6 @@
 
 const PubSub = require('../helpers/pub_sub');
+const Jobs = require('../models/jobs');
 
 class MapView {
   constructor(element) {
@@ -79,7 +80,7 @@ class MapView {
         sidebar.appendChild(card);
         tracker = i;
         jobs[i].tracker = i; // adding tracker property to pass this value to map-intro-view
-        // find distance of last element to set map zoom:
+        // Finding distance of last element to set map zoom:
         if ((i === (trackerPlus-1)) || (i === jobs.length-1)) {
             this.setMapZoom(jobs[i].distance);
         };
@@ -116,7 +117,6 @@ class MapView {
     const distance = (this.checkDistance(job)).toFixed(1);
     marker.bindPopup(`<b>${job.title} vacancy</b><br />${distance} km from where you live.`);
     PubSub.subscribe('MapView:list-item-click', (event) => {
-      console.log('SUBBING', event);
       this.markerPopup(marker, event);
     });
   };
@@ -156,14 +156,15 @@ class MapView {
       title.textContent = job.title;
       title.addEventListener('click', (event) => {
         PubSub.publish('MapView:list-item-click', card.id);
-        console.log('PUBLISHING', card.id);
         if (card.childNodes.length < 2) {
           const kms = document.createElement('p');
+          const del = this.createDeleteButton(job);
           const distance = (job.distance).toFixed(1);
           kms.textContent = `${distance} km from where you live.`
           card.innerHTML = "";
           card.appendChild(title);
           card.appendChild(kms);
+          card.appendChild(del);
         } else {
           card.innerHTML = "";
           card.appendChild(title);
@@ -173,9 +174,20 @@ class MapView {
     return card;
   };
 
+  createDeleteButton(job) {
+    const del = document.createElement('button');
+    del.id = job.id;
+    del.textContent = 'Delete';
+    del.classList.add('ui', 'red', 'button');
+    del.classList.add('delete-button');
+    del.addEventListener('click', (event) => {
+      const jobs = new Jobs();
+      jobs.deleteJob(job.id);
+    });
+    return del;
+  };
+
   markerPopup(marker, event) {
-    console.log('POPUP CALL - marker', marker.id);
-    console.log('POPUP CALL - event', event.detail);
     if (marker.id == event.detail) {
       marker.openPopup();
     };

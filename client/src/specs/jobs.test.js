@@ -3,7 +3,6 @@ const Jobs = require('../models/jobs.js');
 describe('Jobs', () => {
 
   let jobs;
-  let map = L.
 
   beforeEach(() => {
     jobs = new Jobs();
@@ -24,24 +23,18 @@ describe('Jobs', () => {
     expect(jobs1).toBe(jobs2-1);
   });
 
-
-  //
-  //
-  //
-  // test('Should have a name', () => {
-  //   expect(card1.name).toBe('Superman');
-  // });
-  //
-  // test('Should have a level of intelligence', () => {
-  //   expect(card1.intelligence).toBe(6);
-  // });
-  //
-  // test('Should have a level of strength', () => {
-  //   expect(card1.strength).toBe(9);
-  // });
-  //
-  // test('Should have a level of agility', () => {
-  //   expect(card1.agility).toBe(7);
-  // });
-
 });
+
+/*=== Test fails - output: ===*/
+
+// ReferenceError: fetch is not defined
+//
+//        6 |
+//        7 |   get() {
+//     >  8 |     return fetch(this.url)
+//          |     ^
+//        9 |       .then(res => res.json())
+//       10 |   }
+//       11 |
+//
+//       at RequestHelper.get (src/helpers/request_helper.js:8:5)

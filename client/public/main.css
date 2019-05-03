@@ -18,6 +18,7 @@ body {
 
 #div3 {
   text-align: center;
+  margin-top: 20px;
 }
 
 #div3 h3 {
@@ -31,10 +32,14 @@ body {
 
 #address-input {
   height: auto;
-  max-width: 100%;
+  max-width: 90%;
   padding: 6px 6px;
   font-size: 1.5em;
 
+}
+
+.delete-button {
+  margin-bottom: 5px;
 }
 
 .my-form-input {
