@@ -13,3 +13,7 @@ This project can be run inside a docker container for development. Follw these s
     npm start
     
 - Open a browser tab at localhost:3001
+
+# The project
+
+This is a pub-sub project developed in vanilla JavaScript backed by an express server and postgres database. The app makes use of the Leaflet api to display locations on a map.
