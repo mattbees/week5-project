@@ -1,4 +1,4 @@
-# week5-project
+# Geo Job Search - CodeClan week 5 project
 
 This project can be run inside a docker container for development. Follw these steps for setup:
 
