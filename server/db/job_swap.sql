@@ -1,8 +1,3 @@
-DROP TABLE users_job_skills;
-DROP TABLE users;
-DROP TABLE job_skills;
-DROP TABLE jobs;
-
 CREATE TABLE users(
   id SERIAL PRIMARY KEY,
   name VARCHAR(255),

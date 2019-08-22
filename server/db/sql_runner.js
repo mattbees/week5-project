@@ -6,8 +6,10 @@
 // .then takes a callback that will be passed the results of the SQL query
 const { Pool } = require("pg"); // curly brackets signifies destructuring - accesses Pool class from obj
 const pool = new Pool({
-  host: "localhost",
-  database: "job_swap"
+  host: "db",
+  database: "job_swap",
+  password: "job_swap",
+  user: "job_swap"
 });
 
 class SqlRunner {
